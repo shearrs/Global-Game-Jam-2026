@@ -1,0 +1,19 @@
+{
+    "name": "CultMask.Players",
+    "rootNamespace": "CultMask.Players",
+    "references": [
+        "GUID:624a85509f829424398b0fa44ae4b076",
+        "GUID:bc9c2eb1bf6b94f4b82f86ecd181f5c7",
+        "GUID:82e1ca9b695ad5f4b9951665b5cfbd3f",
+        "GUID:846fcb6554688f647858d656b3fb5159"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
