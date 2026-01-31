@@ -21,21 +21,18 @@ namespace CultMask.Players
             Player = player;
         }
 
-        public void StandardUpdateMovement()
+        public void StandardUpdateMovement(float? moveAcceleration = null, float? moveDeceleration = null, float? maxSpeed = null)
         {
-            var moveInput = Input.MoveInput.ReadValue<Vector2>();
+            float resolvedAcceleration = moveAcceleration ?? Data.WalkAcceleration;
+            float resolvedDeceleration = moveDeceleration ?? Data.WalkDeceleration;
+            float resolvedMaxSpeed = maxSpeed ?? Data.MaxWalkSpeed;
 
-            var cameraForward = Camera.transform.forward.With(y: 0).normalized;
-            var cameraRight = Camera.transform.right.With(y: 0).normalized;
-
-            var forward = (moveInput.y * cameraForward);
-            var right = (moveInput.x * cameraRight);
-            var inputDirection = forward + right;
+            var inputDirection = GetInputDirection();
             var currentDirection = Controller.Velocity.With(y: 0).normalized;
             float inputAlignment = Vector3.Dot(currentDirection, inputDirection);
 
-            var acceleration = Time.deltaTime * Data.WalkAcceleration * inputDirection;
-            var deceleration = Time.deltaTime * Data.WalkDeceleration * (1 - inputAlignment) * -currentDirection;
+            var acceleration = Time.deltaTime * resolvedAcceleration * inputDirection;
+            var deceleration = Time.deltaTime * resolvedDeceleration * (1 - inputAlignment) * -currentDirection;
             var movement = acceleration + deceleration;
 
             Vector3 firstSigns = new(Math.Sign(Controller.Velocity.x), 0, Math.Sign(Controller.Velocity.z));
@@ -52,23 +49,44 @@ namespace CultMask.Players
                 Controller.SetVelocity(z: 0.0f);
             }
 
-            if (Flags.IsGrounded)
-                Controller.SetVelocity(y: 0.0f);
-
-            var rotationDirection = Controller.Velocity.With(y: 0) + acceleration;
-
-            if (rotationDirection != Vector3.zero)
-                Controller.RotateToDirection(rotationDirection, Data.RotationSpeed);
+            if (inputDirection != Vector3.zero)
+                Controller.RotateToDirection(inputDirection, Data.RotationSpeed);
 
             Controller.AddVelocity(movement);
+            ClampHorizontalVelocity(resolvedMaxSpeed);
+        }
 
+        public void ClampHorizontalVelocity(float maxSpeed)
+        {
             var horizontalVelocity = Controller.Velocity.With(y: 0);
 
-            if (horizontalVelocity.sqrMagnitude > Data.MaxWalkSpeed * Data.MaxWalkSpeed)
+            if (horizontalVelocity.sqrMagnitude > maxSpeed * maxSpeed)
             {
-                horizontalVelocity = horizontalVelocity.normalized * Data.MaxWalkSpeed;
+                horizontalVelocity = horizontalVelocity.normalized * maxSpeed;
                 Controller.SetVelocity(x: horizontalVelocity.x, z: horizontalVelocity.z);
             }
+        }
+
+        public Vector3 GetInputDirection()
+        {
+            var moveInput = Input.MoveInput.ReadValue<Vector2>();
+
+            var cameraForward = Camera.transform.forward.With(y: 0).normalized;
+            var cameraRight = Camera.transform.right.With(y: 0).normalized;
+
+            var forward = (moveInput.y * cameraForward);
+            var right = (moveInput.x * cameraRight);
+            var inputDirection = forward + right;
+
+            if (inputDirection.sqrMagnitude > 1.0f)
+                inputDirection.Normalize();
+
+            return inputDirection;
+        }
+
+        public void ApplyGravity()
+        {
+            Controller.AddVelocity(Data.Gravity * Time.deltaTime * Vector3.up);
         }
     }
 }

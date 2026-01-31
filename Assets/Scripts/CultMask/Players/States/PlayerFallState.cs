@@ -22,7 +22,10 @@ namespace CultMask.Players
         {
             Controller.AddVelocity(Data.Gravity * Time.deltaTime * Vector3.up);
 
-            StandardUpdateMovement();
+            if (Flags.HasDashed)
+                StandardUpdateMovement(moveAcceleration: Data.DashControlAcceleration, moveDeceleration: Data.DashControlDeceleration, maxSpeed: Data.DashMaxSpeed);
+            else
+                StandardUpdateMovement();
         }
     }
 }

@@ -21,3 +21,10 @@ MonoBehaviour:
   fastFallGravity: -100
   characterHeight: 2
   ledgeHangDistance: 0.5
+  dashVerticalAcceleration: 4
+  dashUpwardMultiplier: 100
+  dashHorizontalForce: 14
+  dashControlAcceleration: 24
+  dashControlDeceleration: 2
+  dashMaxSpeed: 18
+  dashDuration: 0.25

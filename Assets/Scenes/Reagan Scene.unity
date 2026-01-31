@@ -1126,6 +1126,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1989222583}
     m_Modifications:
+    - target: {fileID: 433177581100257800, guid: d15b67b3dc84f344fba83f6370375f5d, type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 433177581100257800, guid: d15b67b3dc84f344fba83f6370375f5d, type: 3}
+      propertyPath: m_StepOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 549821320961260263, guid: d15b67b3dc84f344fba83f6370375f5d, type: 3}
       propertyPath: returnData.duration
       value: 0.2

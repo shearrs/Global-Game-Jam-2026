@@ -38,6 +38,7 @@
   <Project Path="Unity.Burst.CodeGen.csproj" />
   <Project Path="Unity.Addressables.DocExampleCode.Editor.Tests.csproj" />
   <Project Path="Unity.VisualScripting.Flow.csproj" />
+  <Project Path="CultMask.Players.csproj" />
   <Project Path="Unity.PerformanceTesting.csproj" />
   <Project Path="Shears.Signals.csproj" />
   <Project Path="Shears.Common.Editor.csproj" />
@@ -48,7 +49,6 @@
   <Project Path="Unity.Burst.Editor.csproj" />
   <Project Path="Shears.ActionQueues.csproj" />
   <Project Path="Unity.Rider.Editor.csproj" />
-  <Project Path="CultMask.Players.csproj" />
   <Project Path="Unity.VisualScripting.State.csproj" />
   <Project Path="Unity.AI.Navigation.Updater.csproj" />
   <Project Path="Shears.Input.csproj" />

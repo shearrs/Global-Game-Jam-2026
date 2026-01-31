@@ -34,7 +34,7 @@ namespace CultMask.Players
             if (!jumpHeld && MIN_JUMP_TIMER.IsDone)
                 Controller.AddVelocity(Data.FastFallGravity * Time.deltaTime * Vector3.up);
             else
-                Controller.AddVelocity(Data.Gravity * Time.deltaTime * Vector3.up);
+                ApplyGravity();
 
             StandardUpdateMovement();
         }

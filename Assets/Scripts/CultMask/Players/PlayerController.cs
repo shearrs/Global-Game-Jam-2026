@@ -10,11 +10,13 @@ namespace CultMask.Players
         [SerializeField]
         private AreaDetector3D groundDetector;
 
+        private float previousNonZeroYVelocity;
         private Vector3 velocity;
 
         private CharacterController Controller => TypedWrappedValue;
 
         public bool IsGrounded { get; private set; }
+        public float PreviousNonZeroYVelocity => previousNonZeroYVelocity;
         public Vector3 Velocity => velocity;
         public Quaternion Rotation => transform.rotation;
 
@@ -27,6 +29,9 @@ namespace CultMask.Players
         {
             Controller.Move(velocity * Time.deltaTime);
             velocity = Controller.velocity;
+
+            if (Mathf.Abs(velocity.y) > 0.01f)
+                previousNonZeroYVelocity = velocity.y;
         }
 
         public void SetVelocity(Vector3 movement)
@@ -47,6 +52,13 @@ namespace CultMask.Players
         public void AddVelocity(Vector3 movement)
         {
             velocity += movement;
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            Controller.enabled = false;
+            transform.position = position;
+            Controller.enabled = true;
         }
 
         public void RotateToDirection(Vector3 direction, float rotationSpeed)

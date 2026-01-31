@@ -60,10 +60,19 @@ namespace CultMask.Players.Graphics
 
         private void OnStateEntered(State state)
         {
+            Debug.Log("entered state: " + state.Name);
+
             if (state is PlayerLedgeHangState)
                 AnimateLedgeArms();
             else if (state is PlayerJumpState)
                 DoJumpStretch();
+            else if (state is PlayerGroundedState)
+            {
+                Debug.Log("squash velocity: " + character.Controller.PreviousNonZeroYVelocity);
+
+                if (character.Controller.PreviousNonZeroYVelocity < SQUASH_VELOCITY_THRESHOLD)
+                    DoFallSquash();
+            }
         }
 
         private void OnStateExited(State state)
@@ -72,11 +81,6 @@ namespace CultMask.Players.Graphics
             {
                 leftHand.transform.localPosition = originalLeftHandPosition;
                 rightHand.transform.localPosition = originalRightHandPosition;
-            }
-            else if (state is PlayerFallState)
-            {
-                if (character.Controller.Velocity.y < SQUASH_VELOCITY_THRESHOLD)
-                    DoFallSquash();
             }
         }
 

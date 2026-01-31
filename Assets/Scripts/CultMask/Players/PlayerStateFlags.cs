@@ -7,23 +7,32 @@ namespace CultMask.Players
     [System.Serializable]
     public class PlayerStateFlags
     {
+        [Header("Grounded")]
         [SerializeField, ReadOnly]
         private bool isGrounded;
 
         [SerializeField, ReadOnly]
+        private float moveInputMagnitude;
+
+        [SerializeField, ReadOnly]
         private bool isJumping;
 
+        [Header("Ledges")]
         [SerializeField, ReadOnly]
         private bool isDetectingLedge;
-
-        [SerializeField, ReadOnly]
-        private float moveInputMagnitude;
 
         [SerializeField, ReadOnly]
         private Timer jumpGroundedTimer = new(0.1f);
 
         [SerializeField, ReadOnly]
         private Timer ledgeRegrabTimer = new(0.5f);
+
+        [Header("Dashes")]
+        [SerializeField, ReadOnly]
+        private bool hasDashed = false;
+
+        [SerializeField, ReadOnly]
+        private Timer dashTimer = new();
 
         private readonly PlayerCharacter player;
         private readonly PlayerLedgeDetector ledgeDetector;
@@ -35,6 +44,8 @@ namespace CultMask.Players
         public bool IsJumping => isJumping;
         public bool IsDetectingLedge => isDetectingLedge && ledgeRegrabTimer.IsDone;
         public float MoveInputMagnitude => moveInputMagnitude;
+        public bool HasDashed => hasDashed;
+        public bool CanStopDashing => dashTimer.IsDone;
 
         public PlayerStateFlags(PlayerCharacter player)
         {
@@ -64,6 +75,13 @@ namespace CultMask.Players
             {
                 jumpGroundedTimer.Restart();
                 isJumping = true;
+            }
+            else if (state is PlayerGroundedState)
+                hasDashed = false;
+            else if (state is PlayerDashState)
+            {
+                hasDashed = true;
+                dashTimer.Restart(player.Data.DashDuration);
             }
         }
 

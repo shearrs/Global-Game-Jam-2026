@@ -30,7 +30,9 @@ namespace CultMask.Players
         {
             player = GetComponent<PlayerCharacter>().Player;
 
-            var groundedState = new PlayerHubState("Grounded");
+            var locomotionState = new PlayerHubState("Locomotion");
+
+            var groundedState = new PlayerGroundedState();
             var idleState = new PlayerHubState("Idle", true);
             var walkState = new PlayerWalkState();
             var jumpState = new PlayerJumpState();
@@ -40,6 +42,7 @@ namespace CultMask.Players
 
             var controlledState = new PlayerHubState("Controlled");
             var ledgeHangState = new PlayerLedgeHangState();
+            var dashState = new PlayerDashState();
 
             groundedState.AddSubStates(idleState, walkState, jumpState);
             groundedState.DefaultSubState = idleState;
@@ -47,11 +50,15 @@ namespace CultMask.Players
             aerialState.AddSubState(fallState);
             aerialState.DefaultSubState = fallState;
 
-            controlledState.AddSubState(ledgeHangState);
+            controlledState.AddSubStates(ledgeHangState, dashState);
             controlledState.DefaultSubState = ledgeHangState;
+
+            locomotionState.AddSubStates(groundedState, aerialState, controlledState);
+            locomotionState.DefaultSubState = groundedState;
 
             var states = new PlayerState[]
             {
+                locomotionState,
                 groundedState,
                 idleState,
                 walkState,
@@ -60,19 +67,25 @@ namespace CultMask.Players
                 fallState,
                 controlledState,
                 ledgeHangState,
+                dashState
             };
 
             idleState.AddTransition(() => Flags.MoveInputMagnitude > 0.01f, walkState);
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);
-            groundedState.AddTransition(() => Flags.IsGrounded && Input.JumpInput.WasPressedThisFrame(), jumpState);
+            groundedState.AddTransition(() => Input.JumpInput.WasPressedThisFrame(), jumpState);
             groundedState.AddTransition(() => !Flags.IsGrounded && !Flags.IsJumping, aerialState);
+            groundedState.AddTransition(() => !Flags.HasDashed && Input.DashInput.WasPressedThisFrame(), dashState);
             jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
 
             aerialState.AddTransition(() => Flags.IsGrounded, groundedState);
             fallState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
+            fallState.AddTransition(() => !Flags.HasDashed && Input.DashInput.WasPressedThisFrame(), dashState);
 
             ledgeHangState.AddTransition(() => Input.JumpInput.WasPressedThisFrame(), jumpState);
             ledgeHangState.AddTransition(() => Input.DropFromLedgeInput.WasPressedThisFrame(), fallState);
+
+            dashState.AddTransition(() => Flags.CanStopDashing && Controller.Velocity.y <= 0, fallState);
+            dashState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
 
             StateMachine.AddStates(states);
 
