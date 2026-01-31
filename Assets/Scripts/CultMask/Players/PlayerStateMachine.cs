@@ -76,14 +76,14 @@ namespace CultMask.Players
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);
             groundedState.AddTransition(() => !Flags.IsJumping && Flags.IsJumpBuffered, jumpState);
             groundedState.AddTransition(() => !Flags.IsGrounded && !Flags.IsJumping, aerialState);
-            groundedState.AddTransition(() => !Flags.HasDashed && Flags.IsDashBuffered, dashState);
+            groundedState.AddTransition(() => Flags.CanDash && Flags.IsDashBuffered, dashState);
             jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
-            jumpState.AddTransition(() => !Flags.HasDoubleJumped && Flags.IsJumpBuffered, doubleJumpState);
+            jumpState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
 
             aerialState.AddTransition(() => Flags.IsGrounded, groundedState);
             fallState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
-            fallState.AddTransition(() => !Flags.HasDashed && Flags.IsDashBuffered, dashState);
-            fallState.AddTransition(() => !Flags.HasDoubleJumped && Flags.IsJumpBuffered, doubleJumpState);
+            fallState.AddTransition(() => Flags.CanDash && Flags.IsDashBuffered, dashState);
+            fallState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
             doubleJumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
 
             ledgeHangState.AddTransition(() => Flags.IsJumpBuffered, jumpState);
@@ -91,7 +91,7 @@ namespace CultMask.Players
 
             dashState.AddTransition(() => Flags.CanStopDashing && Controller.Velocity.y <= 0, fallState);
             dashState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
-            dashState.AddTransition(() => !Flags.IsGrounded && !Flags.HasDoubleJumped && Flags.IsJumpBuffered, doubleJumpState);
+            dashState.AddTransition(() => !Flags.IsGrounded && Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
 
             StateMachine.AddStates(states);
 

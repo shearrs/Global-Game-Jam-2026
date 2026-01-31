@@ -37,6 +37,9 @@ namespace CultMask.Players
         #region Dash
         [Header("Dash")]
         [SerializeField, ReadOnly]
+        private bool dashUnlocked = true;
+
+        [SerializeField, ReadOnly]
         private bool hasDashed = false;
 
         [SerializeField, ReadOnly]
@@ -80,12 +83,15 @@ namespace CultMask.Players
         public bool IsJumpBuffered => !jumpBufferTimer.IsDone;
         public bool IsDetectingLedge => isDetectingLedge && ledgeRegrabTimer.IsDone;
         public float MoveInputMagnitude => moveInputMagnitude;
+        public bool DashUnlocked => dashUnlocked;
         public bool IsDashBuffered => Input.DashInput.WasPressedThisFrame();
         public bool HasDashed => hasDashed;
+        public bool CanDash => dashUnlocked && !hasDashed;
         public bool CanStopDashing => dashTimer.IsDone;
         public bool CanDashJump => dashJumpInputCooldown.IsDone && !dashJumpWindowTimer.IsDone;
         public bool DoubleJumpUnlocked => doubleJumpUnlocked;
         public bool HasDoubleJumped => hasDoubleJumped;
+        public bool CanDoubleJump => doubleJumpUnlocked && !hasDoubleJumped;
         public bool VisionUnlocked => visionUnlocked;
         public bool CanUseVision => visionUnlocked && !visionManager.IsVisionActive && !visionManager.IsVisionOnCooldown;
         #endregion
