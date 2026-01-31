@@ -23,16 +23,30 @@ namespace CultMask.Players
             UpdateIsGrounded();
         }
 
-        public void Move(Vector3 movement)
+        private void LateUpdate()
         {
-            Controller.Move(movement);
+            Controller.Move(velocity * Time.deltaTime);
+            velocity = Controller.velocity;
+        }
 
-            if (Mathf.Abs(movement.x) > 0.0f)
-                velocity.x = Controller.velocity.x;
-            if (Mathf.Abs(movement.y) > 0.0f)
-                velocity.y = Controller.velocity.y;
-            if (Mathf.Abs(movement.z) > 0.0f)
-                velocity.z = Controller.velocity.z;
+        public void SetVelocity(Vector3 movement)
+        {
+            velocity = movement;
+        }
+
+        public void SetVelocity(float? x = null, float? y = null, float? z = null)
+        {
+            if (x.HasValue)
+                velocity.x = x.Value;
+            if (y.HasValue)
+                velocity.y = y.Value;
+            if (z.HasValue)
+                velocity.z = z.Value;
+        }
+
+        public void AddVelocity(Vector3 movement)
+        {
+            velocity += movement;
         }
 
         public void RotateToDirection(Vector3 direction, float rotationSpeed)
@@ -40,21 +54,6 @@ namespace CultMask.Players
             var lookRotation = Quaternion.LookRotation(direction, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-        }
-
-        public void SetVelocityX(float newX)
-        {
-            velocity.x = newX;
-        }
-
-        public void SetVelocityY(float newY)
-        {
-            velocity.y = newY;
-        }
-
-        public void SetVelocityZ(float newZ)
-        {
-            velocity.z = newZ;
         }
 
         private void UpdateIsGrounded()

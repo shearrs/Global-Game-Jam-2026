@@ -71,7 +71,6 @@ namespace CultMask.Players
             aerialState.AddTransition(() => Flags.IsGrounded, groundedState);
             fallState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
 
-            ledgeHangState.AddTransition(() => !Flags.IsDetectingLedge, fallState);
             ledgeHangState.AddTransition(() => Input.JumpInput.WasPressedThisFrame(), jumpState);
             ledgeHangState.AddTransition(() => Input.DropFromLedgeInput.WasPressedThisFrame(), fallState);
 

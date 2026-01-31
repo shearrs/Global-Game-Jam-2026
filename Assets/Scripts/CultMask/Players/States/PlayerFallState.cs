@@ -5,8 +5,6 @@ namespace CultMask.Players
     [System.Serializable]
     public class PlayerFallState : PlayerState
     {
-        private float verticalVelocity;
-
         public PlayerFallState()
         {
             Name = "Fall";
@@ -14,7 +12,6 @@ namespace CultMask.Players
 
         protected override void OnEnter()
         {
-            verticalVelocity = Controller.Velocity.y;
         }
 
         protected override void OnExit()
@@ -23,10 +20,7 @@ namespace CultMask.Players
 
         protected override void OnUpdate()
         {
-            Controller.Move(Time.deltaTime * verticalVelocity * Vector3.up);
-
-            verticalVelocity = Controller.Velocity.y;
-            verticalVelocity += Data.Gravity * Time.deltaTime;
+            Controller.AddVelocity(Data.Gravity * Time.deltaTime * Vector3.up);
 
             StandardUpdateMovement();
         }

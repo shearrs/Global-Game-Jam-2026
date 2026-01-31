@@ -30,6 +30,7 @@ namespace CultMask.Players
             hangPosition.y = ledgeHeight - Data.CharacterHeight;
 
             Character.transform.SetPositionAndRotation(hangPosition, Quaternion.LookRotation(-wallNormal, Vector3.up));
+            Controller.SetVelocity(Vector3.zero);
         }
 
         protected override void OnExit()
