@@ -22,7 +22,7 @@ namespace CultMask.Players
 
         protected override void OnUpdate()
         {
-            StandardUpdateMovement(moveAcceleration: Data.DashControlAcceleration, moveDeceleration: Data.DashControlDeceleration, maxSpeed: Data.DashMaxSpeed);
+            AfterDashUpdateMovement();
 
             if (!Flags.CanStopDashing)
                 ApplyVerticalAcceleration();

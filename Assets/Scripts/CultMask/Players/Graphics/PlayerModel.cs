@@ -62,7 +62,7 @@ namespace CultMask.Players.Graphics
         {
             if (state is PlayerLedgeHangState)
                 AnimateLedgeArms();
-            else if (state is PlayerJumpState)
+            else if (state is PlayerJumpState || state is PlayerDoubleJumpState)
                 DoJumpStretch();
             else if (state is PlayerGroundedState)
             {

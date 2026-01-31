@@ -17,6 +17,8 @@ MonoBehaviour:
   maxWalkSpeed: 12
   rotationSpeed: 500
   jumpForce: 14
+  jumpBufferTime: 0.1
+  minimumJumpTime: 0.1
   gravity: -30
   fastFallGravity: -100
   characterHeight: 2
@@ -28,3 +30,8 @@ MonoBehaviour:
   dashControlDeceleration: 2
   dashMaxSpeed: 18
   dashDuration: 0.25
+  dashJumpWindow: 0.05
+  dashJumpForce: 20
+  doubleJumpForce: 12
+  visionDuration: 3
+  visionCooldown: 3

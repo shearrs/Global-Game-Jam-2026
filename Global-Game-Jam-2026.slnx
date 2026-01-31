@@ -66,6 +66,7 @@
   <Project Path="Shears.Loading.csproj" />
   <Project Path="Unity.Mathematics.Editor.csproj" />
   <Project Path="Shears.UI.csproj" />
+  <Project Path="CultMask.Levels.csproj" />
   <Project Path="Unity.VisualScripting.SettingsProvider.Editor.csproj" />
   <Project Path="UnityEditor.UI.Analytics.csproj" />
   <Project Path="Shears.Pathfinding.csproj" />

@@ -14,6 +14,7 @@ namespace CultMask.Players
         public IManagedInput JumpInput { get; private set; }
         public IManagedInput DropFromLedgeInput { get; private set; }
         public IManagedInput DashInput { get; private set; }
+        public IManagedInput ActivateVisionInput { get; private set; }
 
         private void Awake()
         {
@@ -21,7 +22,8 @@ namespace CultMask.Players
                 ("Move", i => MoveInput = i),
                 ("Jump", i => JumpInput = i),
                 ("Drop From Ledge", i => DropFromLedgeInput = i),
-                ("Dash", i => DashInput = i)
+                ("Dash", i => DashInput = i),
+                ("Activate Vision", i => ActivateVisionInput = i)
             );
         }
 
