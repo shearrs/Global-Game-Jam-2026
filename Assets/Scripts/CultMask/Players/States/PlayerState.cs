@@ -55,6 +55,11 @@ namespace CultMask.Players
             if (Flags.IsGrounded)
                 Controller.SetVelocity(y: 0.0f);
 
+            var rotationDirection = Controller.Velocity.With(y: 0) + acceleration;
+
+            if (rotationDirection != Vector3.zero)
+                Controller.RotateToDirection(rotationDirection, Data.RotationSpeed);
+
             Controller.AddVelocity(movement);
 
             var horizontalVelocity = Controller.Velocity.With(y: 0);
@@ -64,9 +69,6 @@ namespace CultMask.Players
                 horizontalVelocity = horizontalVelocity.normalized * Data.MaxWalkSpeed;
                 Controller.SetVelocity(x: horizontalVelocity.x, z: horizontalVelocity.z);
             }
-
-            if (inputDirection != Vector3.zero)
-                Controller.RotateToDirection(inputDirection, Data.RotationSpeed);
         }
     }
 }
