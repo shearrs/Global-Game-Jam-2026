@@ -3,15 +3,16 @@ using UnityEngine;
 namespace CultMask.Players
 {
     [System.Serializable]
-    public class PlayerFallState : PlayerState
+    public class PlayerPunchState : PlayerState
     {
-        public PlayerFallState()
+        public PlayerPunchState()
         {
-            Name = "Fall";
+            Name = "Punch";
         }
 
         protected override void OnEnter()
         {
+            Character.PunchManager.Punch();
         }
 
         protected override void OnExit()
@@ -20,8 +21,7 @@ namespace CultMask.Players
 
         protected override void OnUpdate()
         {
-            ApplyGravity();
-
+            AdaptiveApplyGravity();
             AdaptiveUpdateMovement();
         }
     }

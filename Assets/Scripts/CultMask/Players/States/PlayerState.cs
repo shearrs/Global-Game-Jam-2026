@@ -21,6 +21,14 @@ namespace CultMask.Players
             Player = player;
         }
 
+        public void AdaptiveUpdateMovement()
+        {
+            if (Flags.HasDashed)
+                AfterDashUpdateMovement();
+            else
+                StandardUpdateMovement();
+        }
+
         public void AfterDashUpdateMovement() => StandardUpdateMovement(moveAcceleration: Data.DashControlAcceleration, moveDeceleration: Data.DashControlDeceleration, maxSpeed: Data.DashMaxSpeed);
 
         public void StandardUpdateMovement(float? moveAcceleration = null, float? moveDeceleration = null, float? maxSpeed = null)
@@ -84,6 +92,12 @@ namespace CultMask.Players
                 inputDirection.Normalize();
 
             return inputDirection;
+        }
+
+        public void AdaptiveApplyGravity()
+        {
+            if (!Controller.IsGrounded)
+                ApplyGravity();
         }
 
         public void ApplyGravity()
