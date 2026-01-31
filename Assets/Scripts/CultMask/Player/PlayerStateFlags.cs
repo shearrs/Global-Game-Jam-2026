@@ -1,4 +1,5 @@
 using Shears;
+using Shears.StateMachineGraphs;
 using UnityEngine;
 
 namespace CultMask.Players
@@ -12,23 +13,39 @@ namespace CultMask.Players
         [SerializeField, ReadOnly]
         private bool isGrounded;
 
-        private readonly Player player;
+        [SerializeField, ReadOnly]
+        private Timer jumpGroundedTimer = new(0.1f);
+
+        private readonly PlayerCharacter player;
 
         private PlayerInput Input => player.Input;
         private PlayerController Controller => player.Controller;
 
         public float MoveInputMagnitude => moveInputMagnitude;
-        public bool IsGrounded => isGrounded;
+        public bool IsGrounded => isGrounded && jumpGroundedTimer.IsDone;
 
-        public PlayerStateFlags(Player player)
+        public PlayerStateFlags(PlayerCharacter player)
         {
             this.player = player;
+
+            player.StateMachine.EnteredState += OnStateEntered;
+        }
+
+        ~PlayerStateFlags()
+        {
+            player.StateMachine.EnteredState -= OnStateEntered;
         }
 
         public void Update()
         {
             moveInputMagnitude = Input.MoveInput.ReadValue<Vector2>().sqrMagnitude;
             isGrounded = Controller.IsGrounded;
+        }
+
+        private void OnStateEntered(State state)
+        {
+            if (state is PlayerJumpState)
+                jumpGroundedTimer.Restart();
         }
     }
 }

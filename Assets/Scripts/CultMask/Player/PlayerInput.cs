@@ -12,6 +12,7 @@ namespace CultMask.Players
         private IManagedInput moveInput;
         private IManagedInput jumpInput;
 
+        public ManagedInputProvider InputProvider => inputMap;
         public IManagedInput MoveInput => moveInput;
         public IManagedInput JumpInput => jumpInput;
 

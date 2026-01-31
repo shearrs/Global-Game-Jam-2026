@@ -2,8 +2,17 @@ using UnityEngine;
 
 namespace CultMask.Players
 {
+    [System.Serializable]
     public class PlayerHubState : PlayerState
     {
+        private readonly bool updateMovement;
+
+        public PlayerHubState(string name, bool updateMovement = false)
+        {
+            Name = name;
+            this.updateMovement = updateMovement;
+        }
+
         protected override void OnEnter()
         {
         }
@@ -14,6 +23,8 @@ namespace CultMask.Players
 
         protected override void OnUpdate()
         {
+            if (updateMovement)
+                StandardUpdateMovement();
         }
     }
 }

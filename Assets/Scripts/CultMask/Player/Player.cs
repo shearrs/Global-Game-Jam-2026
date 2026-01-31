@@ -1,42 +1,45 @@
+using Shears;
 using UnityEngine;
 
 namespace CultMask.Players
 {
-    [RequireComponent(typeof(PlayerInput), typeof(PlayerStateMachine), typeof(PlayerController))]
+    [RequireComponent(typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
+        [Header("Prefabs")]
         [SerializeField]
-        private PlayerData data;
+        private PlayerCharacter characterPrefab;
 
+        [Header("Instances")]
         [SerializeField]
         new private PlayerCamera camera;
 
-        [SerializeField]
-        private PlayerStateFlags stateFlags;
+        [SerializeField, RuntimeReadOnly]
+        private PlayerCharacter characterInstance;
 
         private PlayerInput input;
-        private PlayerStateMachine stateMachine;
-        private PlayerController controller;
 
-        public PlayerData Data => data;
+        public PlayerCharacter Character => characterInstance;
         public PlayerInput Input => input;
-        public PlayerCamera Camera => camera;
-        public PlayerController Controller => controller;
-        public PlayerStateFlags StateFlags => stateFlags;
 
         private void Awake()
         {
             input = GetComponent<PlayerInput>();
-            stateMachine = GetComponent<PlayerStateMachine>();
-            controller = GetComponent<PlayerController>();
 
-            stateFlags = new(this);
+            SpawnCharacter();
         }
 
         private void Start()
         {
             input.Enable();
-            stateMachine.InitializeStates();
+        }
+
+        private void SpawnCharacter()
+        {
+            if (characterInstance != null)
+                characterInstance.Spawn(this, camera);
+            else
+                characterInstance = PlayerCharacter.Spawn(characterPrefab, this, camera);
         }
     }
 }

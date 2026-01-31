@@ -1,9 +1,16 @@
+using Shears;
 using UnityEngine;
 
 namespace CultMask.Players
 {
+    [System.Serializable]
     public class PlayerWalkState : PlayerState
     {
+        public PlayerWalkState()
+        {
+            Name = "Walk";
+        }
+
         protected override void OnEnter()
         {
         }
@@ -14,19 +21,7 @@ namespace CultMask.Players
 
         protected override void OnUpdate()
         {
-            UpdateMovement();
-        }
-
-        private void UpdateMovement()
-        {
-            var moveInput = Input.MoveInput.ReadValue<Vector2>();
-
-            var forward = (Time.deltaTime * moveInput.y * Camera.transform.forward).normalized;
-            var right = (Time.deltaTime * moveInput.x * Camera.transform.right).normalized;
-
-            var movement = Data.WalkSpeed * (forward + right);
-
-            Controller.Move(movement);
+            StandardUpdateMovement();
         }
     }
 }
