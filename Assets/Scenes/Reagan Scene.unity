@@ -306,7 +306,7 @@ MonoBehaviour:
   sensitivity: 0.2
   smoothing: 25
   minXRotation: -30
-  maxXRotation: 89
+  maxXRotation: 75
   zoomSensitivity: 1
   zoomTime: 0.1
   minZoom: 4
@@ -835,7 +835,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1cca8a4329c7334891936575c77f8e1, type: 2}
+  - {fileID: 2100000, guid: 1c26fe3fd4073a3459266a0f22f45a5f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
