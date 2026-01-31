@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84aa095062ffdae40be0cb87aa39e002, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: CultMask.Players::CultMask.Players.PlayerData
-  walkAcceleration: 16
-  walkDeceleration: 10
-  maxWalkSpeed: 5
+  walkAcceleration: 40
+  walkDeceleration: 100
+  maxWalkSpeed: 12
+  rotationSpeed: 720
   jumpForce: 14
   gravity: -30

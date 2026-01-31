@@ -56,6 +56,7 @@ namespace CultMask.Players
             idleState.AddTransition(() => Flags.MoveInputMagnitude > 0.01f, walkState);
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);
             groundedState.AddTransition(() => Flags.IsGrounded && Input.JumpInput.WasPressedThisFrame(), jumpState);
+            groundedState.AddTransition(() => !Flags.IsGrounded, aerialState);
             jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
 
             aerialState.AddTransition(() => Flags.IsGrounded, groundedState);

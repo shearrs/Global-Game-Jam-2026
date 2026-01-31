@@ -5,11 +5,9 @@ using UnityEngine;
 
 namespace CultMask.Players
 {
-    [System.Serializable]
+    [Serializable]
     public abstract class PlayerState : State
     {
-        private Vector3 lastRotationDirection;
-
         protected Player Player { get; private set; }
         protected PlayerInput Input => Player.Input;
         protected PlayerCharacter Character => Player.Character;
@@ -67,13 +65,8 @@ namespace CultMask.Players
 
             Controller.Move(Time.deltaTime * movement);
 
-            var rotationDirection = movement != Vector3.zero ? movement : lastRotationDirection;
-
-            if (rotationDirection != Vector3.zero)
-            {
-                Controller.RotateToDirection(rotationDirection, Data.RotationSpeed);
-                lastRotationDirection = rotationDirection;
-            }
+            if (movement != Vector3.zero)
+                Controller.RotateToDirection(movement, Data.RotationSpeed);
         }
     }
 }
