@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace CultMask.Players
 {
@@ -10,6 +10,9 @@ namespace CultMask.Players
         private PlayerCharacterData data;
 
         [SerializeField]
+        private PlayerLedgeDetector ledgeDetector;
+
+        [SerializeField]
         private PlayerStateFlags stateFlags;
 
         private Player player;
@@ -17,6 +20,7 @@ namespace CultMask.Players
         new private PlayerCamera camera;
         private PlayerStateMachine stateMachine;
         private PlayerController controller;
+        private bool spawned = false;
 
         public Player Player => player;
         public PlayerCharacterData Data => data;
@@ -25,6 +29,9 @@ namespace CultMask.Players
         public PlayerStateMachine StateMachine => stateMachine;
         public PlayerStateFlags StateFlags => stateFlags;
         public PlayerController Controller => controller;
+        public PlayerLedgeDetector LedgeDetector => ledgeDetector;
+
+        public event Action Spawned;
 
         public static PlayerCharacter Spawn(PlayerCharacter prefab, Player player, PlayerCamera camera)
         {
@@ -41,16 +48,22 @@ namespace CultMask.Players
             this.player = player;
             input = player.Input;
             this.camera = camera;
+
             stateMachine = GetComponent<PlayerStateMachine>();
             controller = GetComponent<PlayerController>();
 
             stateFlags = new(this);
-
             stateMachine.InitializeStates();
+
+            spawned = true;
+            Spawned?.Invoke();
         }
 
         private void Update()
         {
+            if (!spawned)
+                return;
+
             stateFlags.Update();
         }
     }
