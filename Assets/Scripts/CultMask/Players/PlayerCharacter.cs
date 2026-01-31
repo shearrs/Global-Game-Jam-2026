@@ -13,6 +13,9 @@ namespace CultMask.Players
         private PlayerLedgeDetector ledgeDetector;
 
         [SerializeField]
+        private PlayerVisionManager visionManager;
+
+        [SerializeField]
         private PlayerStateFlags stateFlags;
 
         private Player player;
@@ -30,6 +33,7 @@ namespace CultMask.Players
         public PlayerStateFlags StateFlags => stateFlags;
         public PlayerController Controller => controller;
         public PlayerLedgeDetector LedgeDetector => ledgeDetector;
+        public PlayerVisionManager VisionManager => visionManager;
 
         public event Action Spawned;
 
@@ -43,9 +47,6 @@ namespace CultMask.Players
             return character;
         }
 
-        [ContextMenu("Buffer Jump")]
-        public void BufferJump() => stateFlags.OnJumpInput();
-
         public void Spawn(Player player, PlayerCamera camera)
         {
             this.player = player;
@@ -57,6 +58,8 @@ namespace CultMask.Players
 
             stateFlags = new(this);
             stateMachine.InitializeStates();
+
+            visionManager.Initialize(this);
 
             spawned = true;
             Spawned?.Invoke();

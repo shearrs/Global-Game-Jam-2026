@@ -7,6 +7,7 @@ namespace CultMask.Players
     [System.Serializable]
     public class PlayerStateFlags
     {
+        #region Grounded
         [Header("Grounded")]
         [SerializeField, ReadOnly]
         private bool isGrounded = false;
@@ -19,7 +20,9 @@ namespace CultMask.Players
 
         [SerializeField, ReadOnly]
         private Timer jumpBufferTimer = new();
+        #endregion
 
+        #region Ledge Hang
         [Header("Ledge Hang")]
         [SerializeField, ReadOnly]
         private bool isDetectingLedge = false;
@@ -29,7 +32,9 @@ namespace CultMask.Players
 
         [SerializeField, ReadOnly]
         private Timer ledgeRegrabTimer = new(0.5f);
+        #endregion
 
+        #region Dash
         [Header("Dash")]
         [SerializeField, ReadOnly]
         private bool hasDashed = false;
@@ -45,17 +50,28 @@ namespace CultMask.Players
 
         [SerializeField, ReadOnly]
         private Timer dashJumpInputCooldown = new(0.5f);
+        #endregion
 
+        #region Double Jump
         [Header("Double Jump")]
         [SerializeField, ReadOnly]
         private bool doubleJumpUnlocked = true;
 
         [SerializeField, ReadOnly]
         private bool hasDoubleJumped = false;
+        #endregion
+
+        #region Vision
+        [Header("Vision")]
+        [SerializeField, ReadOnly]
+        private bool visionUnlocked = true;
+        #endregion
 
         private readonly PlayerCharacter player;
         private readonly PlayerLedgeDetector ledgeDetector;
+        private readonly PlayerVisionManager visionManager;
 
+        #region Properties
         private PlayerInput Input => player.Input;
         private PlayerController Controller => player.Controller;
 
@@ -70,11 +86,15 @@ namespace CultMask.Players
         public bool CanDashJump => dashJumpInputCooldown.IsDone && !dashJumpWindowTimer.IsDone;
         public bool DoubleJumpUnlocked => doubleJumpUnlocked;
         public bool HasDoubleJumped => hasDoubleJumped;
+        public bool VisionUnlocked => visionUnlocked;
+        public bool CanUseVision => visionUnlocked && !visionManager.IsVisionActive && !visionManager.IsVisionOnCooldown;
+        #endregion
 
         public PlayerStateFlags(PlayerCharacter player)
         {
             this.player = player;
             ledgeDetector = player.LedgeDetector;
+            visionManager = player.VisionManager;
 
             player.StateMachine.EnteredState += OnStateEntered;
             player.StateMachine.ExitedState += OnStateExited;
@@ -143,7 +163,7 @@ namespace CultMask.Players
                 dashEndedTimer.Restart();
         }
 
-        public void OnJumpInput()
+        private void OnJumpInput()
         {
             jumpBufferTimer.Restart(player.Data.JumpBufferTime);
 

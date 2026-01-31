@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &112598680667261954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4217502490574033707}
+  - component: {fileID: 8994546403416847944}
+  m_Layer: 8
+  m_Name: Vision Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4217502490574033707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112598680667261954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1597067982002771520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8994546403416847944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112598680667261954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 501cf91b3c82fd6409ad4ea5df939d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CultMask.Players::CultMask.Players.PlayerVisionManager
+  visionActiveTimer:
+    time: 1
+    currentTime: 0
+    isDone: 1
+  visionCooldownTimer:
+    time: 1
+    currentTime: 0
+    isDone: 1
 --- !u!1 &552033570232007276
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +89,7 @@ Transform:
   - {fileID: 1726991055346522890}
   - {fileID: 2165413112461303077}
   - {fileID: 4345557061181326259}
+  - {fileID: 4217502490574033707}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8878612027631642633
@@ -53,11 +106,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: CultMask.Players::CultMask.Players.PlayerCharacter
   data: {fileID: 11400000, guid: b626f697d026f9b4896ed3bbfc958a37, type: 2}
   ledgeDetector: {fileID: 213792261117486041}
+  visionManager: {fileID: 8994546403416847944}
   stateFlags:
     isGrounded: 0
-    isJumping: 0
-    isDetectingLedge: 0
     moveInputMagnitude: 0
+    isJumping: 0
+    jumpBufferTimer:
+      time: 1
+      currentTime: 0
+      isDone: 1
+    isDetectingLedge: 0
     jumpGroundedTimer:
       time: 1
       currentTime: 0
@@ -66,6 +124,26 @@ MonoBehaviour:
       time: 1
       currentTime: 0
       isDone: 1
+    hasDashed: 0
+    dashTimer:
+      time: 1
+      currentTime: 0
+      isDone: 1
+    dashEndedTimer:
+      time: 1
+      currentTime: 0
+      isDone: 1
+    dashJumpWindowTimer:
+      time: 1
+      currentTime: 0
+      isDone: 1
+    dashJumpInputCooldown:
+      time: 1
+      currentTime: 0
+      isDone: 1
+    doubleJumpUnlocked: 0
+    hasDoubleJumped: 0
+    visionUnlocked: 0
 --- !u!114 &8964695864046385279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,9 +201,9 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
@@ -228,7 +306,7 @@ Transform:
   m_GameObject: {fileID: 833360877594949153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.38, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -255,7 +333,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   detectTriggers: 0
-  radius: 0.45
+  radius: 0.25
   offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1738118955775620201
 GameObject:
@@ -627,7 +705,7 @@ MonoBehaviour:
   jumpStretchData:
     usesDataObject: 0
     tweenDataObject: {fileID: 0}
-    duration: 0.1
+    duration: 0.15
     forceFinalValue: 1
     updateMode: 0
     unscaledTime: 0
@@ -645,7 +723,7 @@ MonoBehaviour:
   fallSquashData:
     usesDataObject: 0
     tweenDataObject: {fileID: 0}
-    duration: 0.1
+    duration: 0.15
     forceFinalValue: 1
     updateMode: 0
     unscaledTime: 0
@@ -663,7 +741,7 @@ MonoBehaviour:
   returnData:
     usesDataObject: 0
     tweenDataObject: {fileID: 0}
-    duration: 0.1
+    duration: 0.2
     forceFinalValue: 1
     updateMode: 0
     unscaledTime: 0
