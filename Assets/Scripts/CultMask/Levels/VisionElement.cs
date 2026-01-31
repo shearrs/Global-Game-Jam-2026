@@ -41,6 +41,8 @@ namespace CultMask.Levels
         private void Awake()
         {
             VisionElementManager.Register(this);
+
+            ReturnToDefault();
         }
 
         private void OnDestroy()
