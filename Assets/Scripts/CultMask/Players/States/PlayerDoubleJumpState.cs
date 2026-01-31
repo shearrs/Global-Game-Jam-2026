@@ -4,15 +4,16 @@ using UnityEngine;
 namespace CultMask.Players
 {
     [System.Serializable]
-    public class PlayerJumpState : PlayerState
+    public class PlayerDoubleJumpState : PlayerState
     {
         private static readonly Timer MIN_JUMP_TIMER = new();
 
+
         private bool jumpHeld;
 
-        public PlayerJumpState()
+        public PlayerDoubleJumpState()
         {
-            Name = "Jump";
+            Name = "Double Jump";
         }
 
         protected override void OnEnter()
@@ -39,9 +40,7 @@ namespace CultMask.Players
 
         private void ApplyJumpForce()
         {
-            float jumpForce = (Flags.CanDashJump) ? Data.DashJumpForce : Data.JumpForce;
-
-            Controller.SetVelocity(y: jumpForce);
+            Controller.SetVelocity(y: Data.DoubleJumpForce);
             jumpHeld = true;
             MIN_JUMP_TIMER.Start(Data.MinimumJumpTime);
         }

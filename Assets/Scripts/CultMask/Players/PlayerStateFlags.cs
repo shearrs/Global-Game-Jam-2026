@@ -9,20 +9,20 @@ namespace CultMask.Players
     {
         [Header("Grounded")]
         [SerializeField, ReadOnly]
-        private bool isGrounded;
+        private bool isGrounded = false;
 
         [SerializeField, ReadOnly]
         private float moveInputMagnitude;
 
         [SerializeField, ReadOnly]
-        private bool isJumping;
+        private bool isJumping = false;
 
         [SerializeField, ReadOnly]
         private Timer jumpBufferTimer = new();
 
-        [Header("Ledges")]
+        [Header("Ledge Hang")]
         [SerializeField, ReadOnly]
-        private bool isDetectingLedge;
+        private bool isDetectingLedge = false;
 
         [SerializeField, ReadOnly]
         private Timer jumpGroundedTimer = new(0.1f);
@@ -30,7 +30,7 @@ namespace CultMask.Players
         [SerializeField, ReadOnly]
         private Timer ledgeRegrabTimer = new(0.5f);
 
-        [Header("Dashes")]
+        [Header("Dash")]
         [SerializeField, ReadOnly]
         private bool hasDashed = false;
 
@@ -38,10 +38,20 @@ namespace CultMask.Players
         private Timer dashTimer = new();
 
         [SerializeField, ReadOnly]
+        private Timer dashEndedTimer = new(0.5f);
+        
+        [SerializeField, ReadOnly]
         private Timer dashJumpWindowTimer = new();
 
         [SerializeField, ReadOnly]
         private Timer dashJumpInputCooldown = new(0.5f);
+
+        [Header("Double Jump")]
+        [SerializeField, ReadOnly]
+        private bool doubleJumpUnlocked = true;
+
+        [SerializeField, ReadOnly]
+        private bool hasDoubleJumped = false;
 
         private readonly PlayerCharacter player;
         private readonly PlayerLedgeDetector ledgeDetector;
@@ -54,9 +64,12 @@ namespace CultMask.Players
         public bool IsJumpBuffered => !jumpBufferTimer.IsDone;
         public bool IsDetectingLedge => isDetectingLedge && ledgeRegrabTimer.IsDone;
         public float MoveInputMagnitude => moveInputMagnitude;
+        public bool IsDashBuffered => Input.DashInput.WasPressedThisFrame();
         public bool HasDashed => hasDashed;
         public bool CanStopDashing => dashTimer.IsDone;
         public bool CanDashJump => dashJumpInputCooldown.IsDone && !dashJumpWindowTimer.IsDone;
+        public bool DoubleJumpUnlocked => doubleJumpUnlocked;
+        public bool HasDoubleJumped => hasDoubleJumped;
 
         public PlayerStateFlags(PlayerCharacter player)
         {
@@ -96,20 +109,27 @@ namespace CultMask.Players
         {
             if (state is PlayerJumpState)
             {
+                jumpBufferTimer.Stop();
                 jumpGroundedTimer.Restart();
                 isJumping = true;
             }
             else if (state is PlayerGroundedState)
             {
-                if (hasDashed)
+                if (!dashEndedTimer.IsDone)
                     dashJumpWindowTimer.Restart(player.Data.DashJumpWindow);
 
                 hasDashed = false;
+                hasDoubleJumped = false;
             }
             else if (state is PlayerDashState)
             {
                 hasDashed = true;
                 dashTimer.Restart(player.Data.DashDuration);
+            }
+            else if (state is PlayerDoubleJumpState)
+            {
+                jumpBufferTimer.Stop();
+                hasDoubleJumped = true;
             }
         }
 
@@ -119,9 +139,11 @@ namespace CultMask.Players
                 isJumping = false;
             else if (state is PlayerLedgeHangState)
                 ledgeRegrabTimer.Restart();
+            else if (state is PlayerDashState)
+                dashEndedTimer.Restart();
         }
 
-        private void OnJumpInput()
+        public void OnJumpInput()
         {
             jumpBufferTimer.Restart(player.Data.JumpBufferTime);
 

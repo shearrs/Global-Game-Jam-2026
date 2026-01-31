@@ -19,15 +19,18 @@ namespace CultMask.Players
         [SerializeField]
         private float rotationSpeed = 500.0f;
 
-        [FoldoutGroup("Aerial", 4)]
+        [FoldoutGroup("Aerial", 5)]
         [SerializeField]
-        private float jumpForce = 14f;
+        private float jumpForce = 14.0f;
 
         [SerializeField]
         private float jumpBufferTime = 0.1f;
 
         [SerializeField]
-        private float gravity = -30f;
+        private float minimumJumpTime = 0.1f;
+
+        [SerializeField]
+        private float gravity = -30.0f;
 
         [SerializeField]
         private float fastFallGravity = -100f;
@@ -65,7 +68,11 @@ namespace CultMask.Players
         private float dashJumpWindow = 0.15f;
 
         [SerializeField]
-        private float dashJumpForce = 28f;
+        private float dashJumpForce = 28.0f;
+
+        [FoldoutGroup("Double Jump", 1)]
+        [SerializeField]
+        private float doubleJumpForce = 8.0f;
 
         public float WalkAcceleration => walkAcceleration;
         public float WalkDeceleration => walkDeceleration;
@@ -73,6 +80,7 @@ namespace CultMask.Players
         public float RotationSpeed => rotationSpeed;
         public float JumpForce => jumpForce;
         public float JumpBufferTime => jumpBufferTime;
+        public float MinimumJumpTime => minimumJumpTime;
         public float Gravity => gravity;
         public float FastFallGravity => fastFallGravity;
         public float CharacterHeight => characterHeight;
@@ -86,5 +94,6 @@ namespace CultMask.Players
         public float DashDuration => dashDuration;
         public float DashJumpWindow => dashJumpWindow;
         public float DashJumpForce => dashJumpForce;
+        public float DoubleJumpForce => doubleJumpForce;
     }
 }

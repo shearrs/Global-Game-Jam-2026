@@ -43,6 +43,9 @@ namespace CultMask.Players
             return character;
         }
 
+        [ContextMenu("Buffer Jump")]
+        public void BufferJump() => stateFlags.OnJumpInput();
+
         public void Spawn(Player player, PlayerCamera camera)
         {
             this.player = player;
