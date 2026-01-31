@@ -17,9 +17,7 @@ namespace CultMask.Players
 
         protected override void OnEnter()
         {
-            Controller.SetVelocity(y: Data.JumpForce);
-            jumpHeld = true;
-            MIN_JUMP_TIMER.Start();
+            ApplyJumpForce();
         }
 
         protected override void OnExit()
@@ -37,6 +35,15 @@ namespace CultMask.Players
                 ApplyGravity();
 
             StandardUpdateMovement();
+        }
+
+        private void ApplyJumpForce()
+        {
+            float jumpForce = (Flags.CanDashJump) ? Data.DashJumpForce : Data.JumpForce;
+
+            Controller.SetVelocity(y: jumpForce);
+            jumpHeld = true;
+            MIN_JUMP_TIMER.Start();
         }
     }
 }

@@ -72,7 +72,7 @@ namespace CultMask.Players
 
             idleState.AddTransition(() => Flags.MoveInputMagnitude > 0.01f, walkState);
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);
-            groundedState.AddTransition(() => Input.JumpInput.WasPressedThisFrame(), jumpState);
+            groundedState.AddTransition(() => Flags.IsJumpBuffered, jumpState);
             groundedState.AddTransition(() => !Flags.IsGrounded && !Flags.IsJumping, aerialState);
             groundedState.AddTransition(() => !Flags.HasDashed && Input.DashInput.WasPressedThisFrame(), dashState);
             jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
@@ -81,7 +81,7 @@ namespace CultMask.Players
             fallState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
             fallState.AddTransition(() => !Flags.HasDashed && Input.DashInput.WasPressedThisFrame(), dashState);
 
-            ledgeHangState.AddTransition(() => Input.JumpInput.WasPressedThisFrame(), jumpState);
+            ledgeHangState.AddTransition(() => Flags.IsJumpBuffered, jumpState);
             ledgeHangState.AddTransition(() => Input.DropFromLedgeInput.WasPressedThisFrame(), fallState);
 
             dashState.AddTransition(() => Flags.CanStopDashing && Controller.Velocity.y <= 0, fallState);
@@ -94,5 +94,7 @@ namespace CultMask.Players
 
             StateMachine.EnterState(groundedState);
         }
+
+        public bool IsInStateOfType<T>() where T : State => StateMachine.IsInStateOfType<T>();
     }
 }

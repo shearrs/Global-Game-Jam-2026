@@ -17,6 +17,9 @@ namespace CultMask.Players
         [SerializeField, ReadOnly]
         private bool isJumping;
 
+        [SerializeField, ReadOnly]
+        private Timer jumpBufferTimer = new();
+
         [Header("Ledges")]
         [SerializeField, ReadOnly]
         private bool isDetectingLedge;
@@ -34,6 +37,12 @@ namespace CultMask.Players
         [SerializeField, ReadOnly]
         private Timer dashTimer = new();
 
+        [SerializeField, ReadOnly]
+        private Timer dashJumpWindowTimer = new();
+
+        [SerializeField, ReadOnly]
+        private Timer dashJumpInputCooldown = new(0.5f);
+
         private readonly PlayerCharacter player;
         private readonly PlayerLedgeDetector ledgeDetector;
 
@@ -42,10 +51,12 @@ namespace CultMask.Players
 
         public bool IsGrounded => isGrounded && jumpGroundedTimer.IsDone;
         public bool IsJumping => isJumping;
+        public bool IsJumpBuffered => !jumpBufferTimer.IsDone;
         public bool IsDetectingLedge => isDetectingLedge && ledgeRegrabTimer.IsDone;
         public float MoveInputMagnitude => moveInputMagnitude;
         public bool HasDashed => hasDashed;
         public bool CanStopDashing => dashTimer.IsDone;
+        public bool CanDashJump => dashJumpInputCooldown.IsDone && !dashJumpWindowTimer.IsDone;
 
         public PlayerStateFlags(PlayerCharacter player)
         {
@@ -54,12 +65,24 @@ namespace CultMask.Players
 
             player.StateMachine.EnteredState += OnStateEntered;
             player.StateMachine.ExitedState += OnStateExited;
+            Input.JumpInput.Performed += OnJumpInput;
+
+            Application.quitting += Dispose;
         }
 
         ~PlayerStateFlags()
         {
+            Dispose();
+        }
+
+        private void Dispose()
+        {
+            if (player == null)
+                return;
+
             player.StateMachine.EnteredState -= OnStateEntered;
             player.StateMachine.ExitedState -= OnStateExited;
+            Input.JumpInput.Performed -= OnJumpInput;
         }
 
         public void Update()
@@ -77,7 +100,12 @@ namespace CultMask.Players
                 isJumping = true;
             }
             else if (state is PlayerGroundedState)
+            {
+                if (hasDashed)
+                    dashJumpWindowTimer.Restart(player.Data.DashJumpWindow);
+
                 hasDashed = false;
+            }
             else if (state is PlayerDashState)
             {
                 hasDashed = true;
@@ -91,6 +119,14 @@ namespace CultMask.Players
                 isJumping = false;
             else if (state is PlayerLedgeHangState)
                 ledgeRegrabTimer.Restart();
+        }
+
+        private void OnJumpInput()
+        {
+            jumpBufferTimer.Restart(player.Data.JumpBufferTime);
+
+            if (!player.StateMachine.IsInStateOfType<PlayerGroundedState>())
+                dashJumpInputCooldown.Restart();
         }
     }
 }

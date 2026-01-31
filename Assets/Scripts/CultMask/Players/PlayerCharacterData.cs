@@ -1,3 +1,4 @@
+using Shears;
 using UnityEngine;
 
 namespace CultMask.Players
@@ -5,7 +6,7 @@ namespace CultMask.Players
     [CreateAssetMenu(menuName = "CultMask/Player/Data")]
     public class PlayerCharacterData : ScriptableObject
     {
-        [Header("Grounded")]
+        [FoldoutGroup("Grounded", 4)]
         [SerializeField]
         private float walkAcceleration = 50.0f;
 
@@ -18,9 +19,12 @@ namespace CultMask.Players
         [SerializeField]
         private float rotationSpeed = 500.0f;
 
-        [Header("Aerial")]
+        [FoldoutGroup("Aerial", 4)]
         [SerializeField]
         private float jumpForce = 14f;
+
+        [SerializeField]
+        private float jumpBufferTime = 0.1f;
 
         [SerializeField]
         private float gravity = -30f;
@@ -28,14 +32,14 @@ namespace CultMask.Players
         [SerializeField]
         private float fastFallGravity = -100f;
 
-        [Header("Controlled")]
+        [FoldoutGroup("Controlled", 2)]
         [SerializeField]
         private float characterHeight = 2.0f;
 
         [SerializeField]
         private float ledgeHangDistance = 0.5f;
 
-        [Header("Dash")]
+        [FoldoutGroup("Dash", 9)]
         [SerializeField]
         private float dashVerticalAcceleration = 10.0f;
 
@@ -57,11 +61,18 @@ namespace CultMask.Players
         [SerializeField]
         private float dashDuration = 0.5f;
 
+        [SerializeField]
+        private float dashJumpWindow = 0.15f;
+
+        [SerializeField]
+        private float dashJumpForce = 28f;
+
         public float WalkAcceleration => walkAcceleration;
         public float WalkDeceleration => walkDeceleration;
         public float MaxWalkSpeed => maxWalkSpeed;
         public float RotationSpeed => rotationSpeed;
         public float JumpForce => jumpForce;
+        public float JumpBufferTime => jumpBufferTime;
         public float Gravity => gravity;
         public float FastFallGravity => fastFallGravity;
         public float CharacterHeight => characterHeight;
@@ -73,5 +84,7 @@ namespace CultMask.Players
         public float DashControlDeceleration => dashControlDeceleration;
         public float DashMaxSpeed => dashMaxSpeed;
         public float DashDuration => dashDuration;
+        public float DashJumpWindow => dashJumpWindow;
+        public float DashJumpForce => dashJumpForce;
     }
 }
