@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1312955501782909630, guid: 69f0a35024d0ece4db1d235a63959f0f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a9813dda14fdcb644ae8ada4611028cf, type: 2}
     - target: {fileID: 919132149155446097, guid: 69f0a35024d0ece4db1d235a63959f0f, type: 3}
       propertyPath: m_Name
       value: Rat_Walk
@@ -285,6 +289,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1312955501782909630, guid: e4aa27ada12eebf4c843eb1633107cf5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a9813dda14fdcb644ae8ada4611028cf, type: 2}
     - target: {fileID: 919132149155446097, guid: e4aa27ada12eebf4c843eb1633107cf5, type: 3}
       propertyPath: m_Name
       value: Rat_Attack
@@ -678,6 +686,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1312955501782909630, guid: fdede985a1100904981b9ddadc03d363, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a9813dda14fdcb644ae8ada4611028cf, type: 2}
     - target: {fileID: 919132149155446097, guid: fdede985a1100904981b9ddadc03d363, type: 3}
       propertyPath: m_Name
       value: Rat_Idle
