@@ -16,6 +16,9 @@ namespace CultMask.Players
         private PlayerVisionManager visionManager;
 
         [SerializeField]
+        private PlayerPunchManager punchManager;
+
+        [SerializeField]
         private PlayerStateFlags stateFlags;
 
         private Player player;
@@ -34,6 +37,7 @@ namespace CultMask.Players
         public PlayerController Controller => controller;
         public PlayerLedgeDetector LedgeDetector => ledgeDetector;
         public PlayerVisionManager VisionManager => visionManager;
+        public PlayerPunchManager PunchManager => punchManager;
 
         public event Action Spawned;
 
@@ -60,6 +64,7 @@ namespace CultMask.Players
             stateMachine.InitializeStates();
 
             visionManager.Initialize(this);
+            punchManager.Initialize(this);
 
             spawned = true;
             Spawned?.Invoke();

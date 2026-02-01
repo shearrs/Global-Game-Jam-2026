@@ -7,116 +7,99 @@ namespace CultMask.Players
     public class PlayerCharacterData : ScriptableObject
     {
         #region Grounded
-        [FoldoutGroup("Grounded", 4)]
-        [SerializeField]
-        private float walkAcceleration = 50.0f;
+        [field: FoldoutGroup("Grounded", 4)]
+        [field: SerializeField]
+        public float WalkAcceleration { get; private set; } = 50.0f;
 
-        [SerializeField]
-        private float walkDeceleration = 100.0f;
+        [field: SerializeField]
+        public float WalkDeceleration { get; private set; } = 100.0f;
 
-        [SerializeField]
-        private float maxWalkSpeed = 12.0f;
+        [field: SerializeField]
+        public float MaxWalkSpeed { get; private set; } = 12.0f;
 
-        [SerializeField]
-        private float rotationSpeed = 500.0f;
+        [field: SerializeField]
+        public float RotationSpeed { get; private set; } = 500.0f;
         #endregion
 
         #region Aerial
-        [FoldoutGroup("Aerial", 5)]
-        [SerializeField]
-        private float jumpForce = 14.0f;
+        [field: FoldoutGroup("Aerial", 5)]
+        [field: SerializeField]
+        public float JumpForce { get; private set; } = 14.0f;
 
-        [SerializeField]
-        private float jumpBufferTime = 0.1f;
+        [field: SerializeField]
+        public float JumpBufferTime { get; private set; } = 0.1f;
 
-        [SerializeField]
-        private float minimumJumpTime = 0.1f;
+        [field: SerializeField]
+        public float MinimumJumpTime { get; private set; } = 0.1f;
 
-        [SerializeField]
-        private float gravity = -30.0f;
+        [field: SerializeField]
+        public float Gravity { get; private set; } = -30.0f;
 
-        [SerializeField]
-        private float fastFallGravity = -100f;
+        [field: SerializeField]
+        public float FastFallGravity { get; private set; } = -100f;
         #endregion
 
         #region Controlled
-        [FoldoutGroup("Controlled", 2)]
-        [SerializeField]
-        private float characterHeight = 2.0f;
+        [field: FoldoutGroup("Controlled", 2)]
+        [field: SerializeField]
+        public float CharacterHeight { get; private set; } = 2.0f;
 
-        [SerializeField]
-        private float ledgeHangDistance = 0.5f;
+        [field: SerializeField]
+        public float LedgeHangDistance { get; private set; } = 0.5f;
         #endregion
 
         #region Dash
-        [FoldoutGroup("Dash", 9)]
-        [SerializeField]
-        private float dashVerticalAcceleration = 4.0f;
+        [field: FoldoutGroup("Dash", 9)]
+        [field: SerializeField]
+        public float DashVerticalAcceleration { get; private set; } = 4.0f;
 
-        [SerializeField]
-        private float dashUpwardMultiplier = 100.0f;
+        [field: SerializeField]
+        public float DashUpwardMultiplier { get; private set; } = 100.0f;
 
-        [SerializeField]
-        private float dashHorizontalForce = 14.0f;
+        [field: SerializeField]
+        public float DashHorizontalForce { get; private set; } = 14.0f;
 
-        [SerializeField]
-        private float dashControlAcceleration = 24.0f;
+        [field: SerializeField]
+        public float DashControlAcceleration { get; private set; } = 24.0f;
 
-        [SerializeField]
-        private float dashControlDeceleration = 2.0f;
+        [field: SerializeField]
+        public float DashControlDeceleration { get; private set; } = 2.0f;
 
-        [SerializeField]
-        private float dashMaxSpeed = 18.0f;
+        [field: SerializeField]
+        public float DashMaxSpeed { get; private set; } = 18.0f;
 
-        [SerializeField]
-        private float dashDuration = 0.25f;
+        [field: SerializeField]
+        public float DashDuration { get; private set; } = 0.25f;
 
-        [SerializeField]
-        private float dashJumpWindow = 0.05f;
+        [field: SerializeField]
+        public float DashJumpWindow { get; private set; } = 0.05f;
 
-        [SerializeField]
-        private float dashJumpForce = 20.0f;
+        [field: SerializeField]
+        public float DashJumpForce { get; private set; } = 20.0f;
         #endregion
 
         #region Double Jump
-        [FoldoutGroup("Double Jump", 1)]
-        [SerializeField]
-        private float doubleJumpForce = 12.0f;
+        [field: FoldoutGroup("Double Jump", 1)]
+        [field: SerializeField]
+        public float DoubleJumpForce { get; private set; } = 12.0f;
         #endregion
 
         #region Vision
-        [FoldoutGroup("Vision", 2)]
-        [SerializeField]
-        private float visionDuration = 3.0f;
+        [field: FoldoutGroup("Vision", 2)]
+        [field: SerializeField]
+        public float VisionDuration { get; private set; } = 3.0f;
 
-        [SerializeField]
-        private float visionCooldown = 3.0f;
+        [field: SerializeField]
+        public float VisionCooldown { get; private set; } = 3.0f;
         #endregion
 
-        #region Properties
-        public float WalkAcceleration => walkAcceleration;
-        public float WalkDeceleration => walkDeceleration;
-        public float MaxWalkSpeed => maxWalkSpeed;
-        public float RotationSpeed => rotationSpeed;
-        public float JumpForce => jumpForce;
-        public float JumpBufferTime => jumpBufferTime;
-        public float MinimumJumpTime => minimumJumpTime;
-        public float Gravity => gravity;
-        public float FastFallGravity => fastFallGravity;
-        public float CharacterHeight => characterHeight;
-        public float LedgeHangDistance => ledgeHangDistance;
-        public float DashVerticalAcceleration => dashVerticalAcceleration;
-        public float DashUpwardMultiplier => dashUpwardMultiplier;
-        public float DashHorizontalForce => dashHorizontalForce;
-        public float DashControlAcceleration => dashControlAcceleration;
-        public float DashControlDeceleration => dashControlDeceleration;
-        public float DashMaxSpeed => dashMaxSpeed;
-        public float DashDuration => dashDuration;
-        public float DashJumpWindow => dashJumpWindow;
-        public float DashJumpForce => dashJumpForce;
-        public float DoubleJumpForce => doubleJumpForce;
-        public float VisionDuration => visionDuration;
-        public float VisionCooldown => visionCooldown;
+        #region Punch
+        [field: FoldoutGroup("Punch", 1)]
+        [field: SerializeField]
+        public float PunchDuration { get; private set; } = 0.15f;
+
+        [field: SerializeField]
+        public float PunchCooldown { get; private set; } = 0.15f;
         #endregion
     }
 }

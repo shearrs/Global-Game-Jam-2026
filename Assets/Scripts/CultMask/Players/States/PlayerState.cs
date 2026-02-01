@@ -21,9 +21,17 @@ namespace CultMask.Players
             Player = player;
         }
 
+        public void AdaptiveUpdateMovement(float? moveAcceleration = null, float? moveDeceleration = null, float? maxSpeed = null, float? rotationSpeed = null)
+        {
+            if (Flags.HasDashed)
+                AfterDashUpdateMovement();
+            else
+                StandardUpdateMovement(moveAcceleration, moveDeceleration, maxSpeed, rotationSpeed);
+        }
+
         public void AfterDashUpdateMovement() => StandardUpdateMovement(moveAcceleration: Data.DashControlAcceleration, moveDeceleration: Data.DashControlDeceleration, maxSpeed: Data.DashMaxSpeed);
 
-        public void StandardUpdateMovement(float? moveAcceleration = null, float? moveDeceleration = null, float? maxSpeed = null)
+        public void StandardUpdateMovement(float? moveAcceleration = null, float? moveDeceleration = null, float? maxSpeed = null, float? rotationSpeed = null)
         {
             float resolvedAcceleration = moveAcceleration ?? Data.WalkAcceleration;
             float resolvedDeceleration = moveDeceleration ?? Data.WalkDeceleration;
@@ -52,7 +60,10 @@ namespace CultMask.Players
             }
 
             if (inputDirection != Vector3.zero)
-                Controller.RotateToDirection(inputDirection, Data.RotationSpeed);
+            {
+                float resolvedRotationSpeed = rotationSpeed ?? Data.RotationSpeed;
+                Controller.RotateToDirection(inputDirection, resolvedRotationSpeed);
+            }
 
             Controller.AddVelocity(movement);
             ClampHorizontalVelocity(resolvedMaxSpeed);
@@ -84,6 +95,12 @@ namespace CultMask.Players
                 inputDirection.Normalize();
 
             return inputDirection;
+        }
+
+        public void AdaptiveApplyGravity()
+        {
+            if (!Controller.IsGrounded)
+                ApplyGravity();
         }
 
         public void ApplyGravity()

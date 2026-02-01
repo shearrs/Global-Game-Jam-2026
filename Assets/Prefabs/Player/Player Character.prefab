@@ -90,6 +90,7 @@ Transform:
   - {fileID: 2165413112461303077}
   - {fileID: 4345557061181326259}
   - {fileID: 4217502490574033707}
+  - {fileID: 6292307114022352098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8878612027631642633
@@ -107,6 +108,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: b626f697d026f9b4896ed3bbfc958a37, type: 2}
   ledgeDetector: {fileID: 213792261117486041}
   visionManager: {fileID: 8994546403416847944}
+  punchManager: {fileID: 4474563932668869929}
   stateFlags:
     isGrounded: 0
     moveInputMagnitude: 0
@@ -124,6 +126,7 @@ MonoBehaviour:
       time: 1
       currentTime: 0
       isDone: 1
+    dashUnlocked: 0
     hasDashed: 0
     dashTimer:
       time: 1
@@ -447,6 +450,78 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1790564103897333517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6292307114022352098}
+  - component: {fileID: 4474563932668869929}
+  - component: {fileID: 4795484475616761646}
+  m_Layer: 8
+  m_Name: Punch Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6292307114022352098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790564103897333517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5527036234990920819}
+  m_Father: {fileID: 1597067982002771520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4474563932668869929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790564103897333517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb958e78a6f334e46b5bf821408c672b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CultMask.Players::CultMask.Players.PlayerPunchManager
+  hitBody: {fileID: 4795484475616761646}
+--- !u!114 &4795484475616761646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790564103897333517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1595e92ee8f90e043a2b75092ec2b65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Shears.HitDetection::Shears.HitDetection.HitBody3D
+  <LogLevels>k__BackingField: 29
+  dataProvider:
+    objectValue: {fileID: 0}
+  shapes:
+  - {fileID: 4069713732945845863}
+  enableOnStart: 0
+  fixedUpdate: 0
+  multiHits: 0
+  unblockable: 0
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  ignoreList: []
 --- !u!1 &2849161820655595290
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,3 +1051,60 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 1}
   distance: 1.25
+--- !u!1 &8045703445703263630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5527036234990920819}
+  - component: {fileID: 4069713732945845863}
+  m_Layer: 0
+  m_Name: Hit Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5527036234990920819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8045703445703263630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6292307114022352098}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4069713732945845863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8045703445703263630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c50eb19fbc68343af79c4157a4d6ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Shears.HitDetection::Shears.HitDetection.HitSphere
+  <LogLevels>k__BackingField: 29
+  gizmoSettings:
+    gizmoModes: 3
+    drawOnSelect: 1
+    sphereColor: {r: 1, g: 0, b: 0, a: 1}
+    rayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  castFromCenter: 0
+  maxHits: 10
+  raysPerSide: 6
+  sourceDirections: -1
+  center: {x: 0, y: 0, z: 0}
+  orientation: {x: 0, y: 0, z: 0}
+  radius: 1

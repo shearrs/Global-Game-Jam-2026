@@ -35,10 +35,7 @@ namespace CultMask.Players
             else
                 ApplyGravity();
 
-            if (Flags.HasDashed)
-                AfterDashUpdateMovement();
-            else
-                StandardUpdateMovement();
+            AdaptiveUpdateMovement();
         }
 
         private void ApplyJumpForce()

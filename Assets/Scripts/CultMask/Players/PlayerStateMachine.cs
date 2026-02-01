@@ -35,23 +35,24 @@ namespace CultMask.Players
             var groundedState = new PlayerGroundedState();
             var idleState = new PlayerHubState("Idle", true);
             var walkState = new PlayerWalkState();
-            var jumpState = new PlayerJumpState();
 
             var aerialState = new PlayerHubState("Aerial");
             var fallState = new PlayerFallState();
             var doubleJumpState = new PlayerDoubleJumpState();
 
             var controlledState = new PlayerHubState("Controlled");
+            var jumpState = new PlayerJumpState();
             var ledgeHangState = new PlayerLedgeHangState();
             var dashState = new PlayerDashState();
+            var punchState = new PlayerPunchState();
 
-            groundedState.AddSubStates(idleState, walkState, jumpState);
+            groundedState.AddSubStates(idleState, walkState);
             groundedState.DefaultSubState = idleState;
 
             aerialState.AddSubStates(fallState, doubleJumpState);
             aerialState.DefaultSubState = fallState;
 
-            controlledState.AddSubStates(ledgeHangState, dashState);
+            controlledState.AddSubStates(ledgeHangState, dashState, jumpState, punchState);
             controlledState.DefaultSubState = ledgeHangState;
 
             locomotionState.AddSubStates(groundedState, aerialState, controlledState);
@@ -60,25 +61,29 @@ namespace CultMask.Players
             var states = new PlayerState[]
             {
                 locomotionState,
+
                 groundedState,
                 idleState,
                 walkState,
-                jumpState,
+                punchState,
+
                 aerialState,
                 fallState,
                 doubleJumpState,
+
                 controlledState,
+                jumpState,
                 ledgeHangState,
                 dashState
             };
+
+            locomotionState.AddTransition(() => Flags.CanPunch && Input.PunchInput.WasPressedThisFrame(), punchState);
 
             idleState.AddTransition(() => Flags.MoveInputMagnitude > 0.01f, walkState);
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);
             groundedState.AddTransition(() => !Flags.IsJumping && Flags.IsJumpBuffered, jumpState);
             groundedState.AddTransition(() => !Flags.IsGrounded && !Flags.IsJumping, aerialState);
             groundedState.AddTransition(() => Flags.CanDash && Flags.IsDashBuffered, dashState);
-            jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
-            jumpState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
 
             aerialState.AddTransition(() => Flags.IsGrounded, groundedState);
             fallState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
@@ -86,12 +91,18 @@ namespace CultMask.Players
             fallState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
             doubleJumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
 
+            jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
+            jumpState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
+
             ledgeHangState.AddTransition(() => Flags.IsJumpBuffered, jumpState);
             ledgeHangState.AddTransition(() => Input.DropFromLedgeInput.WasPressedThisFrame(), fallState);
 
             dashState.AddTransition(() => Flags.CanStopDashing && Controller.Velocity.y <= 0, fallState);
             dashState.AddTransition(() => Flags.IsDetectingLedge, ledgeHangState);
             dashState.AddTransition(() => !Flags.IsGrounded && Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
+
+            punchState.AddTransition(() => !Flags.IsPunching && Flags.IsGrounded, groundedState);
+            punchState.AddTransition(() => !Flags.IsPunching && !Flags.IsGrounded, aerialState);
 
             StateMachine.AddStates(states);
 

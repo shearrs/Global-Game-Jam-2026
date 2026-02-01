@@ -20,12 +20,9 @@ namespace CultMask.Players
 
         protected override void OnUpdate()
         {
-            Controller.AddVelocity(Data.Gravity * Time.deltaTime * Vector3.up);
+            ApplyGravity();
 
-            if (Flags.HasDashed)
-                AfterDashUpdateMovement();
-            else
-                StandardUpdateMovement();
+            AdaptiveUpdateMovement();
         }
     }
 }
