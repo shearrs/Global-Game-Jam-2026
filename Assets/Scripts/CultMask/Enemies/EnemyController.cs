@@ -10,6 +10,10 @@ namespace CultMask.Enemies
         [Auto]
         private NavMeshAgent agent;
 
+        private bool updateRotation = true;
+
+        private const float ROTATION_SPEED = 360.0f;
+
         public Vector3 Velocity => agent.velocity;
         public float MoveSpeed => agent.speed;
 
@@ -20,7 +24,7 @@ namespace CultMask.Enemies
 
         public void ToggleRotation(bool toggle)
         {
-            agent.updateRotation = toggle;
+            updateRotation = toggle;
         }
     }
 }
