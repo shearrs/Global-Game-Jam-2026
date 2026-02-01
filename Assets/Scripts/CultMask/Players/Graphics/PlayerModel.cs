@@ -34,11 +34,8 @@ namespace CultMask.Players.Graphics
         [SerializeField]
         private TweenData returnData = new(0.1f);
 
-        private Vector3 originalLeftHandPosition;
-        private Vector3 originalRightHandPosition;
         private bool wasGrounded;
         private float previousNonZeroYVelocity;
-
         private Tween bodyTween;
 
         public event Action Landed;
