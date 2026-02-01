@@ -1,0 +1,21 @@
+{
+    "name": "CultMask.Enemies",
+    "rootNamespace": "CultMask.Enemies",
+    "references": [
+        "GUID:8c4dd21966739024fbd72155091d199e",
+        "GUID:b28a31c08beef024d83a7aa1ec3f2f6d",
+        "GUID:69ade876bdffc744c9dc2fa170065e7b",
+        "GUID:82e1ca9b695ad5f4b9951665b5cfbd3f",
+        "GUID:f9343658ba9f34f40af4f1a7b0c76be7",
+        "GUID:846fcb6554688f647858d656b3fb5159"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

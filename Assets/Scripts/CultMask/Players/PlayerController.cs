@@ -18,12 +18,12 @@ namespace CultMask.Players
         public Vector3 Velocity => velocity;
         public Quaternion Rotation => transform.rotation;
 
-        private void Update()
+        public void UpdateIsGrounded()
         {
-            UpdateIsGrounded();
+            IsGrounded = groundDetector.Detect();
         }
 
-        private void LateUpdate()
+        public void UpdateController()
         {
             Controller.Move(velocity * Time.deltaTime);
             velocity = Controller.velocity;
@@ -61,11 +61,6 @@ namespace CultMask.Players
             var lookRotation = Quaternion.LookRotation(direction, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-        }
-
-        private void UpdateIsGrounded()
-        {
-            IsGrounded = groundDetector.Detect();
         }
     }
 }
