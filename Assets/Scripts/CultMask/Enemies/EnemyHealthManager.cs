@@ -14,9 +14,14 @@ namespace CultMask.Enemies
         [AutoEvent(nameof(HurtBody3D.HitReceived), nameof(OnHitReceived))]
         private HurtBody3D hurtBody;
 
+        private int health = 3;
+
         private void OnHitReceived(HitData3D _)
         {
-            enemy.Die();
+            health--;
+
+            if (health <= 0)
+                enemy.Die();
         }
     }
 }
