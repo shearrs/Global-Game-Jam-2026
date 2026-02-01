@@ -1,3 +1,4 @@
+using Shears;
 using Shears.HitDetection;
 using Shears.Tweens;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace CultMask.Levels
         [Header("Components")]
         [SerializeField]
         private HurtBody3D hurtBody;
+
+        [SerializeField]
+        private ParticleSystem destroyParticles;
 
         [Header("Settings")]
         [SerializeField, Min(1)]
@@ -35,11 +39,18 @@ namespace CultMask.Levels
             health -= 1;
 
             if (health <= 0)
+            {
+                destroyParticles.transform.SetParent(null);
+                destroyParticles.Play();
+                CoroutineUtil.DoAfter(() => Destroy(destroyParticles), destroyParticles.main.duration, destroyParticles);
+
                 Destroy(gameObject);
+            }
             else
             {
                 shakeTween.Dispose();
                 shakeTween = transform.DoShakeTween(shakeStrength, shakeDelay, shakeTweenData);
+                destroyParticles.Play();
             }
         }
     }
