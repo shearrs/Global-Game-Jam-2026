@@ -133,6 +133,8 @@ namespace CultMask.Players
                 jumpGroundedTimer.Restart();
                 isJumping = true;
             }
+            else if (state is PlayerDoubleJumpState)
+                isJumping = true;
             else if (state is PlayerGroundedState)
             {
                 if (!dashEndedTimer.IsDone)
@@ -156,6 +158,8 @@ namespace CultMask.Players
         private void OnStateExited(State state)
         {
             if (state is PlayerJumpState)
+                isJumping = false;
+            else if (state is PlayerDoubleJumpState)
                 isJumping = false;
             else if (state is PlayerLedgeHangState)
                 ledgeRegrabTimer.Restart();
