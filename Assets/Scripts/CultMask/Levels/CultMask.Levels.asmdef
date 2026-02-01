@@ -3,7 +3,8 @@
     "rootNamespace": "CultMask.Levels",
     "references": [
         "GUID:b28a31c08beef024d83a7aa1ec3f2f6d",
-        "GUID:47c78b473e92098469ae5153d34a31e6"
+        "GUID:47c78b473e92098469ae5153d34a31e6",
+        "GUID:69ade876bdffc744c9dc2fa170065e7b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -8,7 +8,7 @@ namespace CultMask.Players.Graphics
     public partial class PlayerModel : MonoBehaviour
     {
         #region Variables
-        private const float SQUASH_VELOCITY_THRESHOLD = -1.0f;
+        private const float SQUASH_VELOCITY_THRESHOLD = -4.0f;
 
         [Header("Player Components")]
         [SerializeField]
@@ -41,10 +41,10 @@ namespace CultMask.Players.Graphics
 
         private Vector3 originalLeftHandPosition;
         private Vector3 originalRightHandPosition;
+        private bool wasGrounded;
+        private float previousNonZeroYVelocity;
 
         private Tween bodyTween;
-        private Tween leftHandTween;
-        private Tween rightHandTween;
         #endregion
 
         private void Awake()
@@ -55,7 +55,18 @@ namespace CultMask.Players.Graphics
 
         private void Update()
         {
-            AdjustBodyHeight();                
+            AdjustBodyHeight();
+
+            if (Mathf.Abs(character.Controller.Velocity.y) > 0.01f)
+                previousNonZeroYVelocity = character.Controller.Velocity.y;
+
+            if (character.Controller.IsGrounded && !wasGrounded && previousNonZeroYVelocity < SQUASH_VELOCITY_THRESHOLD)
+            {
+                DoFallSquash();
+                previousNonZeroYVelocity = 0;
+            }
+
+            wasGrounded = character.Controller.IsGrounded;
         }
 
         private void OnStateEntered(State state)
@@ -64,11 +75,6 @@ namespace CultMask.Players.Graphics
                 AnimateLedgeArms();
             else if (state is PlayerJumpState || state is PlayerDoubleJumpState)
                 DoJumpStretch();
-            else if (state is PlayerGroundedState)
-            {
-                if (character.Controller.PreviousNonZeroYVelocity < SQUASH_VELOCITY_THRESHOLD)
-                    DoFallSquash();
-            }
         }
 
         private void OnStateExited(State state)

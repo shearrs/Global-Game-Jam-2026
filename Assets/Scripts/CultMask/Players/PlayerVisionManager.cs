@@ -21,6 +21,9 @@ namespace CultMask.Players
         public bool IsVisionActive => !visionActiveTimer.IsDone;
         public bool IsVisionOnCooldown => !visionCooldownTimer.IsDone;
 
+        public event Action VisionActivated;
+        public event Action VisionDeactivated;
+
         private void OnDestroy()
         {
             if (input != null)
@@ -54,6 +57,8 @@ namespace CultMask.Players
             VisionElementManager.EnableVision();
 
             visionActiveTimer.Restart(data.VisionDuration);
+
+            VisionActivated?.Invoke();
         }
 
         private void DeactivateVision()
@@ -61,6 +66,8 @@ namespace CultMask.Players
             VisionElementManager.DisableVision();
 
             visionCooldownTimer.Restart(data.VisionCooldown);
+
+            VisionDeactivated?.Invoke();
         }
     }
 }

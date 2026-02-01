@@ -6,15 +6,27 @@ namespace CultMask.Players
     [RequireComponent(typeof(PlayerStateMachine), typeof(PlayerController))]
     public class PlayerCharacter : MonoBehaviour
     {
+        [Header("Data")]
         [SerializeField]
         private PlayerCharacterData data;
 
+        [Header("Components")]
         [SerializeField]
         private PlayerLedgeDetector ledgeDetector;
 
         [SerializeField]
         private PlayerVisionManager visionManager;
 
+        [SerializeField]
+        private PlayerPunchManager punchManager;
+
+        [SerializeField]
+        private PlayerAbilityManager abilityManager;
+
+        [SerializeField]
+        private PlayerHealthManager healthManager;
+
+        [Header("Flags")]
         [SerializeField]
         private PlayerStateFlags stateFlags;
 
@@ -24,6 +36,7 @@ namespace CultMask.Players
         private PlayerStateMachine stateMachine;
         private PlayerController controller;
         private bool spawned = false;
+        private bool isDead = false;
 
         public Player Player => player;
         public PlayerCharacterData Data => data;
@@ -34,8 +47,10 @@ namespace CultMask.Players
         public PlayerController Controller => controller;
         public PlayerLedgeDetector LedgeDetector => ledgeDetector;
         public PlayerVisionManager VisionManager => visionManager;
+        public PlayerPunchManager PunchManager => punchManager;
 
         public event Action Spawned;
+        public event Action Died;
 
         public static PlayerCharacter Spawn(PlayerCharacter prefab, Player player, PlayerCamera camera)
         {
@@ -60,9 +75,29 @@ namespace CultMask.Players
             stateMachine.InitializeStates();
 
             visionManager.Initialize(this);
+            punchManager.Initialize(this);
+            abilityManager.Initialize(this);
+            healthManager.Initialize(this);
 
             spawned = true;
             Spawned?.Invoke();
+        }
+
+        [ContextMenu("Die")]
+        public void Die()
+        {
+            if (isDead)
+                return;
+
+            isDead = true;
+
+            Destroy(gameObject);
+            Died?.Invoke();
+        }
+
+        private void OnDestroy()
+        {
+            stateFlags.Dispose();
         }
 
         private void Update()
@@ -71,6 +106,12 @@ namespace CultMask.Players
                 return;
 
             stateFlags.Update();
+            controller.UpdateIsGrounded();
+        }
+
+        private void LateUpdate()
+        {
+            controller.UpdateController();
         }
     }
 }

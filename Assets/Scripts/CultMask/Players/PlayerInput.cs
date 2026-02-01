@@ -1,3 +1,4 @@
+using Shears;
 using Shears.Input;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace CultMask.Players
         public IManagedInput DropFromLedgeInput { get; private set; }
         public IManagedInput DashInput { get; private set; }
         public IManagedInput ActivateVisionInput { get; private set; }
+        public IManagedInput PunchInput { get; private set; }
 
         private void Awake()
         {
@@ -23,8 +25,21 @@ namespace CultMask.Players
                 ("Jump", i => JumpInput = i),
                 ("Drop From Ledge", i => DropFromLedgeInput = i),
                 ("Dash", i => DashInput = i),
-                ("Activate Vision", i => ActivateVisionInput = i)
+                ("Activate Vision", i => ActivateVisionInput = i),
+                ("Punch", i => PunchInput = i)
             );
+        }
+
+        private void OnEnable()
+        {
+            PauseManager.Paused += Disable;
+            PauseManager.Unpaused += Enable;
+        }
+
+        private void OnDisable()
+        {
+            PauseManager.Paused -= Disable;
+            PauseManager.Unpaused -= Enable;
         }
 
         public void Enable()

@@ -40,6 +40,8 @@ namespace CultMask.Players
             var horizontalForce = Data.DashHorizontalForce * inputDirection;
             Controller.SetVelocity(x: horizontalForce.x, z: horizontalForce.z);
             ClampHorizontalVelocity(Data.DashMaxSpeed);
+
+            Character.transform.rotation = Quaternion.LookRotation(inputDirection, Vector3.up);
         }
 
         private void ApplyVerticalAcceleration()
