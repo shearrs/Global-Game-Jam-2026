@@ -20,9 +20,15 @@ namespace CultMask.Players
         [AutoEvent(nameof(HurtBody3D.HitReceived), nameof(OnHitReceived))]
         private HurtBody3D hurtBody;
 
+        [AutoEvent(nameof(Timer.Completed), nameof(OnRegenTimerCompleted))]
+        private readonly Timer regenTimer = new(10.0f);
+
         private PlayerCharacter character;
         private PlayerCharacterData data;
 
+        public int Health => health;
+
+        public event Action<int> HealthChanged;
         public event Action<HitData3D> DamageReceived;
 
         public void Initialize(PlayerCharacter character)
@@ -38,7 +44,7 @@ namespace CultMask.Players
             if (!invulnerabilityTimer.IsDone)
                 return;
 
-            health = Mathf.Max(0, health - 1);
+            ChangeHealth(-1);
             
             if (health == 0)
                 character.Die();
@@ -50,6 +56,20 @@ namespace CultMask.Players
                 invulnerabilityTimer.Restart();
                 DamageReceived?.Invoke(data);
             }
+        }
+
+        private void OnRegenTimerCompleted()
+        {
+            ChangeHealth(1);
+        }
+
+        private void ChangeHealth(int change)
+        {
+            health = Mathf.Clamp(health + change, 0, data.MaxHealth);
+
+            HealthChanged?.Invoke(health);
+
+            regenTimer.Restart();
         }
     }
 }

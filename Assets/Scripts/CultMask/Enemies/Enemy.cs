@@ -26,6 +26,7 @@ namespace CultMask.Enemies
         private bool isDead = false;
 
         public EnemyData Data => data;
+        public EnemyStateMachine StateMachine => stateMachine;
         public EnemyStateFlags StateFlags => stateFlags;
         public EnemyController Controller => controller;
         public AreaDetector3D TargetDetector => targetDetector;

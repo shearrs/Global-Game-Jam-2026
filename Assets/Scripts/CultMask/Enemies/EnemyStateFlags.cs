@@ -1,5 +1,6 @@
 using Shears;
 using Shears.Detection;
+using Shears.StateMachineGraphs;
 using UnityEngine;
 
 namespace CultMask.Enemies
@@ -12,16 +13,20 @@ namespace CultMask.Enemies
         [SerializeField, ReadOnly]
         private float distanceFromTarget;
 
+        private readonly Timer attackCooldownTimer = new(2.0f);
         private Enemy enemy;
 
         private AreaDetector3D TargetDetector => enemy.TargetDetector;
 
         public Transform Target => target;
         public float DistanceFromTarget => distanceFromTarget;
+        public bool CanAttack => attackCooldownTimer.IsDone;
 
         public void Initialize(Enemy enemy)
         {
             this.enemy = enemy;
+
+            enemy.StateMachine.EnteredState += OnStateEntered;
         }
 
         public void UpdateFlags()
@@ -54,6 +59,12 @@ namespace CultMask.Enemies
             detector.Distance = distance;
 
             return !detector.Detect();
+        }
+
+        private void OnStateEntered(State state)
+        {
+            if (state is EnemyAttackState)
+                attackCooldownTimer.Restart();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CultMask.Enemies
 
             patrolState.AddTransition(() => Flags.Target != null, chaseState);
             chaseState.AddTransition(() => Flags.Target == null, patrolState);
-            chaseState.AddTransition(() => Flags.DistanceFromTarget <= Data.TargetDistance, attackState);
+            chaseState.AddTransition(() => Flags.DistanceFromTarget <= Data.TargetDistance && Flags.CanAttack, attackState);
             attackState.AddTransition(() => attackState.IsDoneAttacking, chaseState);
 
             foreach (var state in states)
