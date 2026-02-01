@@ -134,17 +134,17 @@ namespace CultMask.Players
             isDetectingLedge = ledgeDetector.IsLedgeDetected;
         }
 
-        public void UnlockAbility(AbilityUnlock.AbilityType type)
+        public void UnlockAbility(AbilityData data)
         {
-            switch (type)
+            switch (data.Type)
             {
-                case AbilityUnlock.AbilityType.Dash:
+                case AbilityData.AbilityType.Dash:
                     dashUnlocked = true;
                     break;
-                case AbilityUnlock.AbilityType.Vision:
+                case AbilityData.AbilityType.Vision:
                     visionUnlocked = true;
                     break;
-                case AbilityUnlock.AbilityType.DoubleJump:
+                case AbilityData.AbilityType.DoubleJump:
                     doubleJumpUnlocked = true;
                     break;
             }

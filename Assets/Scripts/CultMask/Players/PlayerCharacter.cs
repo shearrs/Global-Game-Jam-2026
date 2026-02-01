@@ -80,6 +80,12 @@ namespace CultMask.Players
                 return;
 
             stateFlags.Update();
+            controller.UpdateIsGrounded();
+        }
+
+        private void LateUpdate()
+        {
+            controller.UpdateController();
         }
     }
 }

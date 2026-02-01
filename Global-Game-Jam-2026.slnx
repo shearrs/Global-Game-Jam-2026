@@ -75,6 +75,7 @@
   <Project Path="Unity.ShaderGraph.Utilities.csproj" />
   <Project Path="Shears.Pathfinding.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Shared.Editor.csproj" />
+  <Project Path="CultMask.UI.csproj" />
   <Project Path="Unity.Profiling.Core.csproj" />
   <Project Path="Shears.Beziers.csproj" />
   <Project Path="Shears.Input.Editor.csproj" />

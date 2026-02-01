@@ -4,10 +4,10 @@ namespace CultMask.Levels
 {
     public class AbilityUnlock : MonoBehaviour
     {
-        public enum AbilityType { Vision, Dash, DoubleJump }
+        [SerializeField]
+        private AbilityData data;
 
-        [field: SerializeField]
-        public AbilityType Type { get; private set; }
+        public AbilityData Data => data;
 
         public void Acquire()
         {

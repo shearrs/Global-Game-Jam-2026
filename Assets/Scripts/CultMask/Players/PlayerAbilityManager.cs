@@ -1,5 +1,6 @@
 using CultMask.Levels;
 using Shears.Detection;
+using System;
 using UnityEngine;
 
 namespace CultMask.Players
@@ -10,6 +11,8 @@ namespace CultMask.Players
         private AreaDetector3D detector;
 
         private PlayerStateFlags flags;
+
+        public event Action<AbilityUnlock> AbilityUnlocked;
 
         public void Initialize(PlayerCharacter character)
         {
@@ -32,7 +35,8 @@ namespace CultMask.Players
             if (!detector.TryGetDetection(out AbilityUnlock unlock))
                 return;
 
-            flags.UnlockAbility(unlock.Type);
+            flags.UnlockAbility(unlock.Data);
+            AbilityUnlocked?.Invoke(unlock);
             unlock.Acquire();
         }
     }
