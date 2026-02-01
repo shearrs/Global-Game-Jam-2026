@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7f68c676bd2aa104abdfe42d738f1f7e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f68c676bd2aa104abdfe42d738f1f7e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f68c676bd2aa104abdfe42d738f1f7e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f68c676bd2aa104abdfe42d738f1f7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 193
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
