@@ -96,6 +96,7 @@
   <Project Path="Shears.Detection.Editor.csproj" />
   <Project Path="Unity.VisualScripting.DocCodeExamples.csproj" />
   <Project Path="CultMask.Players.Graphics.csproj" />
+  <Project Path="CultMask.GameManagement.csproj" />
   <Project Path="Unity.ScriptableBuildPipeline.csproj" />
   <Project Path="Unity.PlasticSCM.Editor.Entities.csproj" />
   <Project Path="Shears.HitDetection.Editor.csproj" />
