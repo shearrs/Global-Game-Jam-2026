@@ -35,6 +35,8 @@ namespace CultMask.Players
         public PlayerInput Input => input;
         public PlayerUnlocks Unlocks => unlocks;
 
+        public bool IsEnding { get; set; } = false;
+
         public event Action<PlayerCharacter> CharacterSpawned;
 
         private void Awake()

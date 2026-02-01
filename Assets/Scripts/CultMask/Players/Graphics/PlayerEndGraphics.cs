@@ -54,6 +54,7 @@ namespace CultMask.Players.Graphics
             isEnding = true;
             graphicsContainer.SetActive(true);
 
+            player.IsEnding = true;
             player.Input.Disable();
 
             fadeIn.Modulate = Color.white.With(a: 0.0f);

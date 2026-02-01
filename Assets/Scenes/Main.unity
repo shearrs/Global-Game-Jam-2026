@@ -178,6 +178,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2873706913719552544, guid: b89b3374215f76c409d1a8be0b00b2e3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 7384615959591609826, guid: b89b3374215f76c409d1a8be0b00b2e3, type: 3}
       propertyPath: m_Name
       value: Loader
