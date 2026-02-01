@@ -19,8 +19,8 @@ namespace CultMask.Players.Graphics
         [SerializeField]
         private ParticleSystem deathParticles;
 
-        private readonly TweenData fadeOutTween = new(2.0f);
-        private readonly TweenData fadeInTween = new(3.0f);
+        private readonly TweenData fadeOutTween = new(2.0f, unscaledTime: true);
+        private readonly TweenData fadeInTween = new(3.0f, unscaledTime: true);
         private Tween tween;
         private PlayerCharacter character;
 

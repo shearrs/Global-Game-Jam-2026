@@ -90,9 +90,11 @@ namespace CultMask.Players
             fallState.AddTransition(() => Flags.CanDash && Flags.IsDashBuffered, dashState);
             fallState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
             doubleJumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
+            doubleJumpState.AddTransition(() => Flags.CanDash && Flags.IsDashBuffered, dashState);
 
             jumpState.AddTransition(() => Controller.Velocity.y <= 0, fallState);
             jumpState.AddTransition(() => Flags.CanDoubleJump && Flags.IsJumpBuffered, doubleJumpState);
+            jumpState.AddTransition(() => Flags.CanDash && Flags.IsDashBuffered, dashState);
 
             ledgeHangState.AddTransition(() => Flags.IsJumpBuffered, jumpState);
             ledgeHangState.AddTransition(() => Input.DropFromLedgeInput.WasPressedThisFrame(), fallState);

@@ -732,7 +732,7 @@ PrefabInstance:
     - target: {fileID: -1312955501782909630, guid: fdede985a1100904981b9ddadc03d363, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 844d485c571af12468d31cc0076eb2fb, type: 2}
+      objectReference: {fileID: 2100000, guid: a9813dda14fdcb644ae8ada4611028cf, type: 2}
     - target: {fileID: 919132149155446097, guid: fdede985a1100904981b9ddadc03d363, type: 3}
       propertyPath: m_Name
       value: Rat_Idle
