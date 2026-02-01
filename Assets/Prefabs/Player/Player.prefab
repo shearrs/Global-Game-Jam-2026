@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 291012147871158756}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -10}
+  m_LocalPosition: {x: 0, y: 2, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -191,7 +191,7 @@ MonoBehaviour:
   zoomSensitivity: 1
   zoomTime: 0.1
   minZoom: 4
-  maxZoom: 16
+  maxZoom: 8
   occlusionEnabled: 1
   occlusionMoveSpeed: 200
   occlusionLayers:

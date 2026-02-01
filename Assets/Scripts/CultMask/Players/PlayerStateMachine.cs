@@ -30,7 +30,7 @@ namespace CultMask.Players
         {
             player = GetComponent<PlayerCharacter>().Player;
 
-            var locomotionState = new PlayerHubState("Locomotion");
+            var enabledState = new PlayerHubState("Enabled");
 
             var groundedState = new PlayerGroundedState();
             var idleState = new PlayerHubState("Idle", true);
@@ -55,12 +55,12 @@ namespace CultMask.Players
             controlledState.AddSubStates(ledgeHangState, dashState, jumpState, punchState);
             controlledState.DefaultSubState = ledgeHangState;
 
-            locomotionState.AddSubStates(groundedState, aerialState, controlledState);
-            locomotionState.DefaultSubState = groundedState;
+            enabledState.AddSubStates(groundedState, aerialState, controlledState);
+            enabledState.DefaultSubState = groundedState;
 
             var states = new PlayerState[]
             {
-                locomotionState,
+                enabledState,
 
                 groundedState,
                 idleState,
@@ -77,7 +77,7 @@ namespace CultMask.Players
                 dashState
             };
 
-            locomotionState.AddTransition(() => Flags.CanPunch && Input.PunchInput.WasPressedThisFrame(), punchState);
+            enabledState.AddTransition(() => Flags.CanPunch && Input.PunchInput.WasPressedThisFrame(), punchState);
 
             idleState.AddTransition(() => Flags.MoveInputMagnitude > 0.01f, walkState);
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);

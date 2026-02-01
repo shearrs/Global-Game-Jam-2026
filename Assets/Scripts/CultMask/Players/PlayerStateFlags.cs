@@ -1,3 +1,4 @@
+using CultMask.Levels;
 using Shears;
 using Shears.StateMachineGraphs;
 using UnityEngine;
@@ -37,7 +38,7 @@ namespace CultMask.Players
         #region Dash
         [Header("Dash")]
         [SerializeField, ReadOnly]
-        private bool dashUnlocked = true;
+        private bool dashUnlocked = false;
 
         [SerializeField, ReadOnly]
         private bool hasDashed = false;
@@ -58,7 +59,7 @@ namespace CultMask.Players
         #region Double Jump
         [Header("Double Jump")]
         [SerializeField, ReadOnly]
-        private bool doubleJumpUnlocked = true;
+        private bool doubleJumpUnlocked = false;
 
         [SerializeField, ReadOnly]
         private bool hasDoubleJumped = false;
@@ -67,7 +68,7 @@ namespace CultMask.Players
         #region Vision
         [Header("Vision")]
         [SerializeField, ReadOnly]
-        private bool visionUnlocked = true;
+        private bool visionUnlocked = false;
         #endregion
 
         private readonly PlayerCharacter player;
@@ -131,6 +132,22 @@ namespace CultMask.Players
             moveInputMagnitude = Input.MoveInput.ReadValue<Vector2>().sqrMagnitude;
             isGrounded = Controller.IsGrounded;
             isDetectingLedge = ledgeDetector.IsLedgeDetected;
+        }
+
+        public void UnlockAbility(AbilityData data)
+        {
+            switch (data.Type)
+            {
+                case AbilityData.AbilityType.Dash:
+                    dashUnlocked = true;
+                    break;
+                case AbilityData.AbilityType.Vision:
+                    visionUnlocked = true;
+                    break;
+                case AbilityData.AbilityType.DoubleJump:
+                    doubleJumpUnlocked = true;
+                    break;
+            }
         }
 
         private void OnStateEntered(State state)

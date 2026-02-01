@@ -2,10 +2,14 @@
     "name": "CultMask.Players.Graphics",
     "rootNamespace": "CultMask.Players.Graphics",
     "references": [
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
         "GUID:b28a31c08beef024d83a7aa1ec3f2f6d",
         "GUID:846fcb6554688f647858d656b3fb5159",
+        "GUID:47c78b473e92098469ae5153d34a31e6",
         "GUID:48a71ade2650bc34c9c6642fb5917245",
-        "GUID:47c78b473e92098469ae5153d34a31e6"
+        "GUID:72c7b3165be759b4f88abe44f365cf8b",
+        "GUID:024c340964cf16f41bda6043dfed572d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

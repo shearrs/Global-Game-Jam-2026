@@ -19,6 +19,9 @@ namespace CultMask.Players
         private PlayerPunchManager punchManager;
 
         [SerializeField]
+        private PlayerAbilityManager abilityManager;
+
+        [SerializeField]
         private PlayerStateFlags stateFlags;
 
         private Player player;
@@ -65,6 +68,7 @@ namespace CultMask.Players
 
             visionManager.Initialize(this);
             punchManager.Initialize(this);
+            abilityManager.Initialize(this);
 
             spawned = true;
             Spawned?.Invoke();
@@ -76,6 +80,12 @@ namespace CultMask.Players
                 return;
 
             stateFlags.Update();
+            controller.UpdateIsGrounded();
+        }
+
+        private void LateUpdate()
+        {
+            controller.UpdateController();
         }
     }
 }
