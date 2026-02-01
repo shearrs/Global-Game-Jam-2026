@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: db77532075d300549878d738da9d3198
   m_SerializeEntries:
+  - m_GUID: 12b433305c04c4049980574f50f8181e
+    m_Address: Dungeon Level
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d8c76ecabd93614dac7bfbaceb56d01
     m_Address: Main
     m_ReadOnly: 0
@@ -26,7 +31,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: facbcc8aa92da964a8268b396586aab5
-    m_Address: Dungeon Level
+    m_Address: Test Level
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

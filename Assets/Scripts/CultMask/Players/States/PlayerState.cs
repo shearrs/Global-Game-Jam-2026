@@ -29,7 +29,7 @@ namespace CultMask.Players
                 StandardUpdateMovement(moveAcceleration, moveDeceleration, maxSpeed, rotationSpeed);
         }
 
-        public void AfterDashUpdateMovement() => StandardUpdateMovement(moveAcceleration: Data.DashControlAcceleration, moveDeceleration: Data.DashControlDeceleration, maxSpeed: Data.DashMaxSpeed);
+        public void AfterDashUpdateMovement() => StandardUpdateMovement(moveAcceleration: Data.DashControlAcceleration, moveDeceleration: Data.DashControlDeceleration, maxSpeed: Data.DashMaxSpeed, rotationSpeed: 0.35f * Data.RotationSpeed);
 
         public void StandardUpdateMovement(float? moveAcceleration = null, float? moveDeceleration = null, float? maxSpeed = null, float? rotationSpeed = null)
         {

@@ -64,6 +64,7 @@ namespace CultMask.UI
         {
             graphicsContainer.SetActive(true);
             PauseManager.Pause();
+            continueButton.Focus();
 
             isPaused = true;
         }
