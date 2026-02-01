@@ -77,7 +77,7 @@ namespace CultMask.Players
                 dashState
             };
 
-            enabledState.AddTransition(() => Flags.CanPunch && Input.PunchInput.WasPressedThisFrame(), punchState);
+            enabledState.AddTransition(() => Flags.CanPunch && !Flags.IsHanging && Input.PunchInput.WasPressedThisFrame(), punchState);
 
             idleState.AddTransition(() => Flags.MoveInputMagnitude > 0.01f, walkState);
             walkState.AddTransition(() => Flags.MoveInputMagnitude <= 0.01f, idleState);

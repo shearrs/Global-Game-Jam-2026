@@ -94,7 +94,7 @@ namespace CultMask.Players
         #endregion
 
         #region Punch
-        [field: FoldoutGroup("Punch", 1)]
+        [field: FoldoutGroup("Punch", 2)]
         [field: SerializeField]
         public float PunchDuration { get; private set; } = 0.15f;
 

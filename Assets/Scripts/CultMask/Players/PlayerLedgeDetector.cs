@@ -48,7 +48,7 @@ namespace CultMask.Players
 
             ledgeHeight = ledgeHit.point.y;
             wallPoint = wallHit.point;
-            wallNormal = wallHit.normal;
+            wallNormal = wallHit.normal.normalized;
             isLedgeDetected = true;
         }
     }

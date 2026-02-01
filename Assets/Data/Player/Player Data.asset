@@ -37,3 +37,4 @@ MonoBehaviour:
   <VisionCooldown>k__BackingField: 3
   <PunchDuration>k__BackingField: 0.15
   <PunchCooldown>k__BackingField: 0.15
+  <MaxHealth>k__BackingField: 4

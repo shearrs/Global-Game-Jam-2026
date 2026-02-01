@@ -32,8 +32,6 @@ namespace CultMask.Players
             Controller.SetPosition(hangPosition);
             Character.transform.localRotation = Quaternion.LookRotation(-wallNormal, Vector3.up);
             Controller.SetVelocity(Vector3.zero);
-
-            Debug.DrawRay(WallPoint, WallNormal, Color.red, 100.0f);
         }
 
         protected override void OnExit()
