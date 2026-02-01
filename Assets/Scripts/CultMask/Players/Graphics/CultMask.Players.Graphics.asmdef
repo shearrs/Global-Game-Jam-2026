@@ -2,6 +2,8 @@
     "name": "CultMask.Players.Graphics",
     "rootNamespace": "CultMask.Players.Graphics",
     "references": [
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
         "GUID:b28a31c08beef024d83a7aa1ec3f2f6d",
         "GUID:846fcb6554688f647858d656b3fb5159",
         "GUID:48a71ade2650bc34c9c6642fb5917245",
