@@ -1,3 +1,4 @@
+using Shears;
 using UnityEngine;
 
 namespace CultMask.Players
@@ -13,6 +14,7 @@ namespace CultMask.Players
         protected override void OnEnter()
         {
             Character.PunchManager.Punch();
+            Character.transform.rotation = Quaternion.LookRotation(Camera.transform.forward.With(y: 0), Vector3.up);
         }
 
         protected override void OnExit()
@@ -22,7 +24,7 @@ namespace CultMask.Players
         protected override void OnUpdate()
         {
             AdaptiveApplyGravity();
-            AdaptiveUpdateMovement();
+            AdaptiveUpdateMovement(rotationSpeed: 0.0f);
         }
     }
 }
