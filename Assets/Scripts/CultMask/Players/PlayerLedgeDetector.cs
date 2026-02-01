@@ -10,6 +10,9 @@ namespace CultMask.Players
         private RayDetector3D ledgeDetector;
 
         [SerializeField]
+        private SphereDetector occlusionDetector;
+
+        [SerializeField]
         private RayDetector3D wallDetector;
 
         private bool isLedgeDetected;
@@ -32,6 +35,9 @@ namespace CultMask.Players
             isLedgeDetected = false;
 
             if (!ledgeDetector.Detect())
+                return;
+
+            if (occlusionDetector.Detect())
                 return;
 
             if (!wallDetector.Detect())
