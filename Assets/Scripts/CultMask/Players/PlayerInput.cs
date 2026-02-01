@@ -1,3 +1,4 @@
+using Shears;
 using Shears.Input;
 using UnityEngine;
 
@@ -27,6 +28,18 @@ namespace CultMask.Players
                 ("Activate Vision", i => ActivateVisionInput = i),
                 ("Punch", i => PunchInput = i)
             );
+        }
+
+        private void OnEnable()
+        {
+            PauseManager.Paused += Disable;
+            PauseManager.Unpaused += Enable;
+        }
+
+        private void OnDisable()
+        {
+            PauseManager.Paused -= Disable;
+            PauseManager.Unpaused -= Enable;
         }
 
         public void Enable()

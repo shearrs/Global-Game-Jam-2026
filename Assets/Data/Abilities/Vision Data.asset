@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: CultMask.Levels::CultMask.Levels.AbilityData
   type: 0
   title: Vision
-  description: See beyond the physical realm to gain footing.  Use E/Left Trigger
+  description: See beyond the physical realm to gain footing.  \n\nUse E/Left Trigger
     to change ethereal platforms to your advantage.

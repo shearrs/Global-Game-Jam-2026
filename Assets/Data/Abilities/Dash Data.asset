@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: CultMask.Levels::CultMask.Levels.AbilityData
   type: 1
   title: Dash
-  description: Propel yourself forward to reach farther distances.  Use Shift/Right
-    Trigger to dash either on the ground or midair. Timing a jump at the end of a
-    grounded dash can reach greater heights.
+  description: Propel yourself forward to reach farther distances.  \n\nUse Shift/Right
+    Trigger to dash either on the ground or midair. \n\nTiming a jump at the end
+    of a grounded dash can reach greater heights.

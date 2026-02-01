@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: CultMask.Levels::CultMask.Levels.AbilityData
   type: 2
   title: Double Jump
-  description: Ascend higher with a powerful upwards force.  Use Spacebar/A to jump
-    again while in midair.
+  description: Ascend higher with a powerful upwards force.  \n\nUse Spacebar/A to
+    jump again while in midair.

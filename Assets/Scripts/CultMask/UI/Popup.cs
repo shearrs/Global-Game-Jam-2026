@@ -30,7 +30,7 @@ namespace CultMask.UI
         private Tween backgroundTween;
         private Tween titleTween;
         private Tween textTween;
-        private Tween buttonTween;
+        private bool isOpen = false;
 
         public string Title { get => title.text; set => title.text = value; }
 
@@ -40,15 +40,12 @@ namespace CultMask.UI
 
         public void Open()
         {
-            CursorManager.SetCursorVisibility(true);
-            CursorManager.SetCursorLockMode(CursorLockMode.None);
-
             dismissButton.Selectable = false;
-            dismissButton.Image.BaseColor = dismissButton.Image.BaseColor.With(a: 0.0f);
             background.Modulate = Color.white.With(a: 0.0f);
             title.color = title.color.With(a: 0.0f);
             text.color = text.color.With(a: 0.0f);
             graphicsContainer.SetActive(true);
+            dismissButton.Disable();
 
             backgroundTween.Dispose();
             titleTween.Dispose();
@@ -59,9 +56,15 @@ namespace CultMask.UI
             textTween = text.DoColorTween(text.color.With(a: 1.0f), tweenData);
             textTween.Completed += () =>
             {
-                buttonTween = dismissButton.Image.DoColorTween(dismissButton.Image.BaseColor.With(a: 1.0f), tweenData);
-                buttonTween.Completed += () => dismissButton.Selectable = true;
+                dismissButton.FadeIn(1.0f, unscaledTime: true);
+                dismissButton.FadeInCompleted += () =>
+                {
+                    dismissButton.Selectable = true;
+                    dismissButton.Focus();
+                };
             };
+
+            isOpen = true;
         }
 
         public void Close()
@@ -77,13 +80,27 @@ namespace CultMask.UI
             backgroundTween = background.DoModulateTween(Color.white.With(a: 0.0f), tweenData);
             titleTween = title.DoColorTween(title.color.With(a: 0.0f), tweenData);
             textTween = text.DoColorTween(text.color.With(a: 0.0f), tweenData);
-            buttonTween = dismissButton.Image.DoColorTween(dismissButton.Image.BaseColor.With(a: 0.0f), tweenData);
+            dismissButton.FadeOut(1.0f, true);
 
-            buttonTween.Completed += () =>
+            dismissButton.FadeOutCompleted += () =>
             {
                 graphicsContainer.SetActive(false);
                 Closed?.Invoke();
             };
+
+            isOpen = false;
+        }
+
+        private void Update()
+        {
+            if (!isOpen)
+                return;
+
+            if (ManagedPointer.Current.Delta.sqrMagnitude > 0.0f)
+            {
+                CursorManager.SetCursorVisibility(true);
+                CursorManager.SetCursorLockMode(CursorLockMode.None);
+            }
         }
     }
 }

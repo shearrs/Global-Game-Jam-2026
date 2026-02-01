@@ -14,7 +14,12 @@ namespace CultMask.Players
         protected override void OnEnter()
         {
             Character.PunchManager.Punch();
-            Character.transform.rotation = Quaternion.LookRotation(Camera.transform.forward.With(y: 0), Vector3.up);
+
+            var rotationDirection = GetInputDirection();
+            if (rotationDirection == Vector3.zero)
+                rotationDirection = Character.transform.forward;
+
+            Character.transform.rotation = Quaternion.LookRotation(rotationDirection, Vector3.up);
         }
 
         protected override void OnExit()
