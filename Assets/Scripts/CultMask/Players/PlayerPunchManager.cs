@@ -1,12 +1,14 @@
 using Shears;
 using Shears.HitDetection;
+using System;
 using UnityEngine;
 
 namespace CultMask.Players
 {
-    public class PlayerPunchManager : MonoBehaviour
+    public partial class PlayerPunchManager : MonoBehaviour
     {
         [SerializeField]
+        [AutoEvent(nameof(HitBody3D.HitDelivered), nameof(OnHitDelivered))]
         private HitBody3D hitBody;
 
         private readonly Timer punchActiveTimer = new();
@@ -16,6 +18,8 @@ namespace CultMask.Players
         public bool IsPunching => !punchActiveTimer.IsDone;
         public bool IsPunchWindingDown => !punchCooldownTimer.IsDone;
         public bool CanPunch => punchActiveTimer.IsDone && punchCooldownTimer.IsDone;
+
+        public event Action<HitData3D> HitDelivered;
 
         private void Awake()
         {
@@ -37,6 +41,11 @@ namespace CultMask.Players
         {
             hitBody.Disable();
             punchCooldownTimer.Start(data.PunchCooldown);
+        }
+
+        private void OnHitDelivered(HitData3D hit)
+        {
+            HitDelivered?.Invoke(hit);
         }
     }
 }

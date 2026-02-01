@@ -86,6 +86,7 @@
   <Project Path="Unity.CollabProxy.Editor.csproj" />
   <Project Path="Shears.Cameras.csproj" />
   <Project Path="Unity.RenderPipeline.Universal.ShaderLibrary.csproj" />
+  <Project Path="CultMask.Enemies.Graphics.csproj" />
   <Project Path="Shears.Loading.Editor.csproj" />
   <Project Path="Shears.GraphViews.csproj" />
   <Project Path="Shears.Editor.WindowTools.csproj" />

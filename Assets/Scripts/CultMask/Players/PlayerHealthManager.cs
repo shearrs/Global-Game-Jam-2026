@@ -1,5 +1,6 @@
 using Shears;
 using Shears.HitDetection;
+using System;
 using UnityEngine;
 
 namespace CultMask.Players
@@ -13,11 +14,16 @@ namespace CultMask.Players
         private float knockbackForce = 16.0f;
 
         [SerializeField]
+        private Timer invulnerabilityTimer = new(1.0f);
+
+        [SerializeField]
         [AutoEvent(nameof(HurtBody3D.HitReceived), nameof(OnHitReceived))]
         private HurtBody3D hurtBody;
 
         private PlayerCharacter character;
         private PlayerCharacterData data;
+
+        public event Action<HitData3D> DamageReceived;
 
         public void Initialize(PlayerCharacter character)
         {
@@ -29,6 +35,9 @@ namespace CultMask.Players
 
         private void OnHitReceived(HitData3D data)
         {
+            if (!invulnerabilityTimer.IsDone)
+                return;
+
             health = Mathf.Max(0, health - 1);
             
             if (health == 0)
@@ -37,6 +46,9 @@ namespace CultMask.Players
             {
                 Vector3 direction = (character.transform.position - data.HitBody.transform.position).With(y: .5f).normalized;
                 character.Controller.AddVelocity(direction * knockbackForce);
+
+                invulnerabilityTimer.Restart();
+                DamageReceived?.Invoke(data);
             }
         }
     }

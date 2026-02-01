@@ -10,6 +10,9 @@ namespace CultMask.Enemies
         [Auto]
         private NavMeshAgent agent;
 
+        public Vector3 Velocity => agent.velocity;
+        public float MoveSpeed => agent.speed;
+
         public void SetDestination(Vector3 destination)
         {
             agent.SetDestination(destination);

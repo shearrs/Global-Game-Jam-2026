@@ -1,0 +1,18 @@
+{
+    "name": "CultMask.Enemies.Graphics",
+    "rootNamespace": "CultMask.Enemies.Graphics",
+    "references": [
+        "GUID:b28a31c08beef024d83a7aa1ec3f2f6d",
+        "GUID:846fcb6554688f647858d656b3fb5159",
+        "GUID:f86b50dc1bb983a4fb34da5ec2f9d974"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

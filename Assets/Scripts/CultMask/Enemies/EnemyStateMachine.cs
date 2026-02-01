@@ -1,5 +1,6 @@
 using Shears;
 using Shears.StateMachineGraphs;
+using System;
 using UnityEngine;
 
 namespace CultMask.Enemies
@@ -14,6 +15,9 @@ namespace CultMask.Enemies
         private StateMachine StateMachine => TypedWrappedValue;
         private EnemyData Data => enemy.Data;
         private EnemyStateFlags Flags => enemy.StateFlags;
+
+        public event Action<State> EnteredState { add => StateMachine.EnteredState += value; remove => StateMachine.EnteredState -= value; }
+        public event Action<State> ExitedState { add => StateMachine.ExitedState += value; remove => StateMachine.ExitedState -= value; }
 
         private void Awake()
         {

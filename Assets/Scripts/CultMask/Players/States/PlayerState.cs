@@ -59,17 +59,20 @@ namespace CultMask.Players
                 Controller.SetVelocity(z: 0.0f);
             }
 
-            if (inputDirection != Vector3.zero)
+            Controller.AddVelocity(movement);
+
+            var horizontalVelocity = Controller.Velocity.With(y: 0.0f);
+
+            if (horizontalVelocity != Vector3.zero)
             {
                 float resolvedRotationSpeed = rotationSpeed ?? Data.RotationSpeed;
 
                 if (Flags.IsPunchWindingDown)
                     resolvedRotationSpeed = 1.0f;
 
-                Controller.RotateToDirection(inputDirection, resolvedRotationSpeed);
+                Controller.RotateToDirection(horizontalVelocity, resolvedRotationSpeed);
             }
 
-            Controller.AddVelocity(movement);
             ClampHorizontalVelocity(resolvedMaxSpeed);
         }
 

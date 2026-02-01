@@ -1,19 +1,22 @@
+using Shears;
+using Shears.HitDetection;
 using UnityEngine;
 
 namespace CultMask.Enemies
 {
-    public class EnemyHealthManager : MonoBehaviour
+    [RequireComponent(typeof(HurtBody3D))]
+    public partial class EnemyHealthManager : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
+        [SerializeField]
+        private Enemy enemy;
 
-        // Update is called once per frame
-        void Update()
+        [Auto]
+        [AutoEvent(nameof(HurtBody3D.HitReceived), nameof(OnHitReceived))]
+        private HurtBody3D hurtBody;
+
+        private void OnHitReceived(HitData3D _)
         {
-        
+            enemy.Die();
         }
     }
 }

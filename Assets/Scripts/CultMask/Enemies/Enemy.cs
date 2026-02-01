@@ -1,5 +1,6 @@
 using Shears.Detection;
 using Shears.HitDetection;
+using System;
 using UnityEngine;
 
 namespace CultMask.Enemies
@@ -22,6 +23,7 @@ namespace CultMask.Enemies
         private EnemyStateMachine stateMachine;
         private EnemyStateFlags stateFlags;
         private EnemyController controller;
+        private bool isDead = false;
 
         public EnemyData Data => data;
         public EnemyStateFlags StateFlags => stateFlags;
@@ -29,6 +31,8 @@ namespace CultMask.Enemies
         public AreaDetector3D TargetDetector => targetDetector;
         public RayDetector3D LineOfSightDetector => lineOfSightDetector;
         public HitBody3D HitBody => hitBody;
+
+        public event Action Died;
 
         private void Awake()
         {
@@ -47,6 +51,17 @@ namespace CultMask.Enemies
         private void Update()
         {
             stateFlags.UpdateFlags();
+        }
+
+        public void Die()
+        {
+            if (isDead)
+                return;
+
+            isDead = true;
+
+            Died?.Invoke();
+            Destroy(gameObject);
         }
     }
 }
