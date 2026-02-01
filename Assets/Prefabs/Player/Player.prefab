@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845b97a2ff394ea40bee0b63e0014003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Shears.UI::Shears.UI.UIElementCanvas
+  sortOrder: 0
 --- !u!1 &8649150134700697694
 GameObject:
   m_ObjectHideFlags: 0

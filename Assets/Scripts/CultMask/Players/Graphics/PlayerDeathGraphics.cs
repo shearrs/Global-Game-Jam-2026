@@ -27,8 +27,10 @@ namespace CultMask.Players.Graphics
         private void OnCharacterSpawned(PlayerCharacter character)
         {
             tween.Dispose();
+            fadeImage.gameObject.SetActive(true);
             fadeImage.Modulate = Color.white;
             tween = fadeImage.DoModulateTween(Color.white.With(a: 0.0f), fadeInTween);
+            tween.Completed += () => fadeImage.gameObject.SetActive(false);
 
             this.character = character;
             character.Died += OnCharacterDied;
