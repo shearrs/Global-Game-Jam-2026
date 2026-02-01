@@ -1,4 +1,6 @@
 using Shears;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace CultMask.Players
@@ -17,6 +19,9 @@ namespace CultMask.Players
         [SerializeField]
         private PlayerUnlocks unlocks;
 
+        [SerializeField]
+        private float respawnTime = 5.0f;
+
         [SerializeField, RuntimeReadOnly]
         private PlayerCharacter characterInstance;
 
@@ -26,25 +31,18 @@ namespace CultMask.Players
         public PlayerInput Input => input;
         public PlayerUnlocks Unlocks => unlocks;
 
+        public event Action<PlayerCharacter> CharacterSpawned;
+
         private void Awake()
         {
             input = GetComponent<PlayerInput>();
-
-            SpawnCharacter();
         }
 
         private void Start()
         {
-            input.Enable();
-        }
-
-        [ContextMenu("Respawn Character")]
-        private void RespawnCharacter()
-        {
-            Destroy(characterInstance.gameObject);
-            characterInstance = null;
-
             SpawnCharacter();
+
+            input.Enable();
         }
 
         public void UnlockAbility(Levels.AbilityData data) => unlocks.UnlockAbility(data);
@@ -57,6 +55,27 @@ namespace CultMask.Players
                 characterInstance = PlayerCharacter.Spawn(characterPrefab, this, camera);
 
             camera.SetTarget(characterInstance.transform);
+            characterInstance.Died += OnCharacterDied;
+
+            CharacterSpawned?.Invoke(characterInstance);
+        }
+
+        private void OnCharacterDied()
+        {
+            characterInstance = null;
+            Respawn();
+        }
+
+        private void Respawn()
+        {
+            StartCoroutine(IERespawn());
+        }
+
+        private IEnumerator IERespawn()
+        {
+            yield return CoroutineUtil.WaitForSeconds(respawnTime);
+
+            SpawnCharacter();
         }
     }
 }
