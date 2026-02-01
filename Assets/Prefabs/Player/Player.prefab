@@ -197,7 +197,7 @@ MonoBehaviour:
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 64
-  occlusionRadius: 0.5
+  occlusionRadius: 0.1
   occlusionPadding: 0.1
 --- !u!1 &2632231830810387816
 GameObject:
