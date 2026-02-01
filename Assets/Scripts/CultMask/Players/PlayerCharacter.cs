@@ -74,6 +74,11 @@ namespace CultMask.Players
             Spawned?.Invoke();
         }
 
+        private void OnDestroy()
+        {
+            stateFlags.Dispose();
+        }
+
         private void Update()
         {
             if (!spawned)

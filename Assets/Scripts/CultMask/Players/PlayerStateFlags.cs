@@ -38,9 +38,6 @@ namespace CultMask.Players
         #region Dash
         [Header("Dash")]
         [SerializeField, ReadOnly]
-        private bool dashUnlocked = false;
-
-        [SerializeField, ReadOnly]
         private bool hasDashed = false;
 
         [SerializeField, ReadOnly]
@@ -59,54 +56,48 @@ namespace CultMask.Players
         #region Double Jump
         [Header("Double Jump")]
         [SerializeField, ReadOnly]
-        private bool doubleJumpUnlocked = false;
-
-        [SerializeField, ReadOnly]
         private bool hasDoubleJumped = false;
         #endregion
 
-        #region Vision
-        [Header("Vision")]
-        [SerializeField, ReadOnly]
-        private bool visionUnlocked = false;
-        #endregion
-
-        private readonly PlayerCharacter player;
+        private readonly PlayerCharacter character;
         private readonly PlayerLedgeDetector ledgeDetector;
         private readonly PlayerVisionManager visionManager;
+        private readonly PlayerUnlocks unlocks;
 
         #region Properties
-        private PlayerInput Input => player.Input;
-        private PlayerController Controller => player.Controller;
+        private PlayerInput Input => character.Input;
+        private PlayerController Controller => character.Controller;
+
+        public bool DashUnlocked => unlocks.DashUnlocked;
+        public bool DoubleJumpUnlocked => unlocks.DoubleJumpUnlocked;
+        public bool VisionUnlocked => unlocks.VisionUnlocked;
 
         public bool IsGrounded => isGrounded && jumpGroundedTimer.IsDone;
         public bool IsJumping => isJumping;
         public bool IsJumpBuffered => !jumpBufferTimer.IsDone;
         public bool IsDetectingLedge => isDetectingLedge && ledgeRegrabTimer.IsDone;
         public float MoveInputMagnitude => moveInputMagnitude;
-        public bool DashUnlocked => dashUnlocked;
         public bool IsDashBuffered => Input.DashInput.WasPressedThisFrame();
         public bool HasDashed => hasDashed;
-        public bool CanDash => dashUnlocked && !hasDashed;
+        public bool CanDash => DashUnlocked && !hasDashed;
         public bool CanStopDashing => dashTimer.IsDone;
         public bool CanDashJump => dashJumpInputCooldown.IsDone && !dashJumpWindowTimer.IsDone;
-        public bool DoubleJumpUnlocked => doubleJumpUnlocked;
         public bool HasDoubleJumped => hasDoubleJumped;
-        public bool CanDoubleJump => doubleJumpUnlocked && !hasDoubleJumped;
-        public bool VisionUnlocked => visionUnlocked;
-        public bool CanUseVision => visionUnlocked && !visionManager.IsVisionActive && !visionManager.IsVisionOnCooldown;
-        public bool IsPunching => player.PunchManager.IsPunching;
-        public bool CanPunch => player.PunchManager.CanPunch;
+        public bool CanDoubleJump => DoubleJumpUnlocked && !hasDoubleJumped;
+        public bool CanUseVision => VisionUnlocked && !visionManager.IsVisionActive && !visionManager.IsVisionOnCooldown;
+        public bool IsPunching => character.PunchManager.IsPunching;
+        public bool CanPunch => character.PunchManager.CanPunch;
         #endregion
 
-        public PlayerStateFlags(PlayerCharacter player)
+        public PlayerStateFlags(PlayerCharacter character)
         {
-            this.player = player;
-            ledgeDetector = player.LedgeDetector;
-            visionManager = player.VisionManager;
+            this.character = character;
+            unlocks = character.Player.Unlocks;
+            ledgeDetector = character.LedgeDetector;
+            visionManager = character.VisionManager;
 
-            player.StateMachine.EnteredState += OnStateEntered;
-            player.StateMachine.ExitedState += OnStateExited;
+            character.StateMachine.EnteredState += OnStateEntered;
+            character.StateMachine.ExitedState += OnStateExited;
             Input.JumpInput.Performed += OnJumpInput;
 
             Application.quitting += Dispose;
@@ -117,13 +108,13 @@ namespace CultMask.Players
             Dispose();
         }
 
-        private void Dispose()
+        public void Dispose()
         {
-            if (player == null)
+            if (character == null)
                 return;
 
-            player.StateMachine.EnteredState -= OnStateEntered;
-            player.StateMachine.ExitedState -= OnStateExited;
+            character.StateMachine.EnteredState -= OnStateEntered;
+            character.StateMachine.ExitedState -= OnStateExited;
             Input.JumpInput.Performed -= OnJumpInput;
         }
 
@@ -132,22 +123,6 @@ namespace CultMask.Players
             moveInputMagnitude = Input.MoveInput.ReadValue<Vector2>().sqrMagnitude;
             isGrounded = Controller.IsGrounded;
             isDetectingLedge = ledgeDetector.IsLedgeDetected;
-        }
-
-        public void UnlockAbility(AbilityData data)
-        {
-            switch (data.Type)
-            {
-                case AbilityData.AbilityType.Dash:
-                    dashUnlocked = true;
-                    break;
-                case AbilityData.AbilityType.Vision:
-                    visionUnlocked = true;
-                    break;
-                case AbilityData.AbilityType.DoubleJump:
-                    doubleJumpUnlocked = true;
-                    break;
-            }
         }
 
         private void OnStateEntered(State state)
@@ -161,7 +136,7 @@ namespace CultMask.Players
             else if (state is PlayerGroundedState)
             {
                 if (!dashEndedTimer.IsDone)
-                    dashJumpWindowTimer.Restart(player.Data.DashJumpWindow);
+                    dashJumpWindowTimer.Restart(character.Data.DashJumpWindow);
 
                 hasDashed = false;
                 hasDoubleJumped = false;
@@ -169,7 +144,7 @@ namespace CultMask.Players
             else if (state is PlayerDashState)
             {
                 hasDashed = true;
-                dashTimer.Restart(player.Data.DashDuration);
+                dashTimer.Restart(character.Data.DashDuration);
             }
             else if (state is PlayerDoubleJumpState)
             {
@@ -190,9 +165,9 @@ namespace CultMask.Players
 
         private void OnJumpInput()
         {
-            jumpBufferTimer.Restart(player.Data.JumpBufferTime);
+            jumpBufferTimer.Restart(character.Data.JumpBufferTime);
 
-            if (!player.StateMachine.IsInStateOfType<PlayerGroundedState>())
+            if (!character.StateMachine.IsInStateOfType<PlayerGroundedState>())
                 dashJumpInputCooldown.Restart();
         }
     }

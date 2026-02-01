@@ -25,5 +25,10 @@ namespace CultMask.Players
 
             state.Zoom = state.MaxZoom;
         }
+
+        public void SetTarget(Transform target)
+        {
+            state.Target = target;
+        }
     }
 }
