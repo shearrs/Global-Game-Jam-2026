@@ -6,7 +6,6 @@ namespace CultMask.Enemies
     [System.Serializable]
     public class EnemyChaseState : EnemyState
     {
-        private const float TARGET_DISTANCE = 2f;
         private const float ROTATION_SPEED = 360.0f;
 
         public EnemyChaseState()
@@ -30,7 +29,7 @@ namespace CultMask.Enemies
                 return;
 
             Vector3 offsetDirection = (Enemy.transform.position - Flags.Target.position).With(y: 0.0f).normalized;
-            Vector3 targetPosition = Flags.Target.position + (TARGET_DISTANCE * offsetDirection);
+            Vector3 targetPosition = Flags.Target.position + (0.5f * Data.TargetDistance * offsetDirection);
             Quaternion targetRotation = Quaternion.LookRotation(-offsetDirection, Vector3.up);
 
             Controller.SetDestination(targetPosition);

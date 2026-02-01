@@ -9,6 +9,7 @@ namespace CultMask.Enemies
         private EnemyStateFlags flags;
 
         protected Enemy Enemy => enemy;
+        protected EnemyData Data => enemy.Data;
         protected EnemyStateFlags Flags => flags;
         protected EnemyController Controller => enemy.Controller;
 
