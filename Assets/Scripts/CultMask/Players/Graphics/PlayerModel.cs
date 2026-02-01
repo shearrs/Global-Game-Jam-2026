@@ -24,12 +24,6 @@ namespace CultMask.Players.Graphics
         [SerializeField]
         private Transform body;
 
-        [SerializeField]
-        private Transform leftHand;
-
-        [SerializeField]
-        private Transform rightHand;
-
         [Header("Tweens")]
         [SerializeField]
         private TweenData jumpStretchData = new(0.1f, easingFunction: TweenEase.OutBack);
@@ -50,16 +44,8 @@ namespace CultMask.Players.Graphics
         public event Action Landed;
         #endregion
 
-        private void Awake()
-        {
-            originalLeftHandPosition = leftHand.localPosition;
-            originalRightHandPosition = rightHand.localPosition;
-        }
-
         private void Update()
         {
-            AdjustBodyHeight();
-
             if (Mathf.Abs(character.Controller.Velocity.y) > 0.01f)
                 previousNonZeroYVelocity = character.Controller.Velocity.y;
 
@@ -76,53 +62,33 @@ namespace CultMask.Players.Graphics
 
         private void OnStateEntered(State state)
         {
-            if (state is PlayerLedgeHangState)
-                AnimateLedgeArms();
-            else if (state is PlayerJumpState || state is PlayerDoubleJumpState)
+            if (state is PlayerJumpState || state is PlayerDoubleJumpState)
                 DoJumpStretch();
         }
 
         private void OnStateExited(State state)
         {
-            if (state is PlayerLedgeHangState)
-            {
-                leftHand.transform.localPosition = originalLeftHandPosition;
-                rightHand.transform.localPosition = originalRightHandPosition;
-            }
-        }
-
-        private void AnimateLedgeArms()
-        {
-            var data = character.Data;
-
-            leftHand.transform.localPosition = originalLeftHandPosition + new Vector3(0.25f, 0.6f * data.CharacterHeight, data.LedgeHangDistance);
-            rightHand.transform.localPosition = originalRightHandPosition + new Vector3(-0.25f, 0.6f * data.CharacterHeight, data.LedgeHangDistance);
+            // don't need this..
         }
 
         private void DoJumpStretch()
         {
-            const float STRETCH_AMOUNT = 1.15f;
+            const float STRETCH_AMOUNT = 1.25f;
+            const float INVERSE_STRETCH_AMOUNT = 0.7f;
 
             bodyTween.Dispose();
-            bodyTween = body.DoScaleLocalTween(new(0.85f, STRETCH_AMOUNT, 0.85f), jumpStretchData);
+            bodyTween = body.DoScaleLocalTween(new(INVERSE_STRETCH_AMOUNT, STRETCH_AMOUNT, INVERSE_STRETCH_AMOUNT), jumpStretchData);
             bodyTween.Completed += () => bodyTween = body.DoScaleLocalTween(Vector3.one, returnData);
         }
 
         private void DoFallSquash()
         {
-            const float SQUASH_AMOUNT = 0.85f;
+            const float SQUASH_AMOUNT = 0.75f;
+            const float INVERSE_SQUASH_AMOUNT = 1.25f;
 
             bodyTween.Dispose();
-            bodyTween = body.DoScaleLocalTween(new(1.15f, SQUASH_AMOUNT, 1.15f), fallSquashData);
+            bodyTween = body.DoScaleLocalTween(new(INVERSE_SQUASH_AMOUNT, SQUASH_AMOUNT, INVERSE_SQUASH_AMOUNT), fallSquashData);
             bodyTween.Completed += () => bodyTween = body.DoScaleLocalTween(Vector3.one, returnData);
-        }
-
-        private void AdjustBodyHeight()
-        {
-            //if (bodyTween.IsPlaying)
-            //    body.transform.localPosition = body.transform.localPosition.With(y: body.transform.localScale.y);
-            //else
-            //    body.transform.localPosition = Vector3.zero;
         }
     }
 }
