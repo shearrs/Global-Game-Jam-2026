@@ -101,5 +101,11 @@ namespace CultMask.Players
         [field: SerializeField]
         public float PunchCooldown { get; private set; } = 0.15f;
         #endregion
+
+        #region Health
+        [field: FoldoutGroup("Health", 1)]
+        [field: SerializeField]
+        public int MaxHealth { get; private set; } = 4;
+        #endregion
     }
 }

@@ -10,18 +10,18 @@ namespace CultMask.Players
         [SerializeField]
         private AreaDetector3D detector;
 
-        private PlayerStateFlags flags;
+        private Player player;
 
         public event Action<AbilityUnlock> AbilityUnlocked;
 
         public void Initialize(PlayerCharacter character)
         {
-            flags = character.StateFlags;
+            player = character.Player;
         }
 
         private void Update()
         {
-            if (flags == null)
+            if (player == null)
                 return;
 
             DetectUnlock();
@@ -35,7 +35,7 @@ namespace CultMask.Players
             if (!detector.TryGetDetection(out AbilityUnlock unlock))
                 return;
 
-            flags.UnlockAbility(unlock.Data);
+            player.UnlockAbility(unlock.Data);
             AbilityUnlocked?.Invoke(unlock);
             unlock.Acquire();
         }
