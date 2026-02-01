@@ -298,12 +298,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: CultMask.Players::CultMask.Players.Player
   characterPrefab: {fileID: 8878612027631642633, guid: d15b67b3dc84f344fba83f6370375f5d, type: 3}
   camera: {fileID: 5049815400968555629}
+  characterInstance: {fileID: 6571873004308364497}
   unlocks:
     dashUnlocked: 0
     doubleJumpUnlocked: 0
     visionUnlocked: 0
+  respawnPoint: {fileID: 0}
   respawnTime: 5
-  characterInstance: {fileID: 6571873004308364497}
 --- !u!114 &4498201092355632407
 MonoBehaviour:
   m_ObjectHideFlags: 0

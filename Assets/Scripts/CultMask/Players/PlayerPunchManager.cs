@@ -14,6 +14,7 @@ namespace CultMask.Players
         private PlayerCharacterData data;
 
         public bool IsPunching => !punchActiveTimer.IsDone;
+        public bool IsPunchWindingDown => !punchCooldownTimer.IsDone;
         public bool CanPunch => punchActiveTimer.IsDone && punchCooldownTimer.IsDone;
 
         private void Awake()

@@ -1,5 +1,6 @@
 using Shears;
 using Shears.StateMachineGraphs;
+using Shears.Tweens;
 using UnityEngine;
 
 namespace CultMask.Players.Graphics
@@ -15,6 +16,8 @@ namespace CultMask.Players.Graphics
         private static readonly int ANIM_JUMP = Animator.StringToHash("jump");
         private static readonly int ANIM_DASH = Animator.StringToHash("dash");
         private static readonly int ANIM_HANG = Animator.StringToHash("hang");
+        private static readonly int ANIM_LEFT_PUNCH = Animator.StringToHash("leftPunch");
+        private static readonly int ANIM_RIGHT_PUNCH = Animator.StringToHash("rightPunch");
 
         [SerializeField]
         private PlayerCharacter character;
@@ -29,6 +32,11 @@ namespace CultMask.Players.Graphics
 
         [Auto]
         private Animator animator;
+
+        private readonly TweenData upperBodyTweenData = new(0.25f);
+        private Tween upperBodyTween;
+        private bool wasPunching = false;
+        private bool wasLeftPunch = false;
 
         private PlayerStateFlags Flags => character.StateFlags;
 
@@ -45,6 +53,23 @@ namespace CultMask.Players.Graphics
             animator.SetBool(ANIM_IS_GROUNDED, Flags.IsGrounded);
             animator.SetBool(ANIM_IS_JUMPING, Flags.IsJumping);
             animator.SetBool(ANIM_IS_HANGING, Flags.IsHanging);
+
+            if (character.StateFlags.IsPunching || character.StateFlags.IsPunchWindingDown)
+            {
+                upperBodyTween.Dispose();
+                animator.SetLayerWeight(1, 1.0f);
+                wasPunching = true;
+            }
+            else if (wasPunching)
+            {
+                wasPunching = false;
+
+                upperBodyTween.Dispose();
+                upperBodyTween = TweenManager.DoTween(t =>
+                {
+                    animator.SetLayerWeight(1, 1.0f - t);
+                }, upperBodyTweenData).WithLifetime(this);
+            }
         }
 
         private void OnStateEntered(State state)
@@ -60,6 +85,15 @@ namespace CultMask.Players.Graphics
             {
                 animator.SetTrigger(ANIM_HANG);
                 SetLedgePosition();
+            }
+            else if (state is PlayerPunchState)
+            {
+                if (wasLeftPunch)
+                    animator.SetTrigger(ANIM_RIGHT_PUNCH);
+                else
+                    animator.SetTrigger(ANIM_LEFT_PUNCH);
+
+                wasLeftPunch = !wasLeftPunch;
             }
         }
 

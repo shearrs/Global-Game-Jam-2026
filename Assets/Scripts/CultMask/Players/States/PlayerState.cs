@@ -62,6 +62,10 @@ namespace CultMask.Players
             if (inputDirection != Vector3.zero)
             {
                 float resolvedRotationSpeed = rotationSpeed ?? Data.RotationSpeed;
+
+                if (Flags.IsPunchWindingDown)
+                    resolvedRotationSpeed = 1.0f;
+
                 Controller.RotateToDirection(inputDirection, resolvedRotationSpeed);
             }
 

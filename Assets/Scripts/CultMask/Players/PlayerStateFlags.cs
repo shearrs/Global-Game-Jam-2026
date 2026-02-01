@@ -90,6 +90,7 @@ namespace CultMask.Players
         public bool CanDoubleJump => DoubleJumpUnlocked && !hasDoubleJumped;
         public bool CanUseVision => VisionUnlocked && !visionManager.IsVisionActive && !visionManager.IsVisionOnCooldown;
         public bool IsPunching => character.PunchManager.IsPunching;
+        public bool IsPunchWindingDown => character.PunchManager.IsPunchWindingDown;
         public bool CanPunch => character.PunchManager.CanPunch;
         #endregion
 
