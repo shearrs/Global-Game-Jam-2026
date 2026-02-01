@@ -19,6 +19,7 @@ namespace CultMask.Players
         public bool IsPunchWindingDown => !punchCooldownTimer.IsDone;
         public bool CanPunch => punchActiveTimer.IsDone && punchCooldownTimer.IsDone;
 
+        public event Action Punched;
         public event Action<HitData3D> HitDelivered;
 
         private void Awake()
@@ -35,6 +36,7 @@ namespace CultMask.Players
         {
             hitBody.Enable();
             punchActiveTimer.Restart(data.PunchDuration);
+            Punched?.Invoke();
         }
 
         private void OnPunchTimerCompleted()

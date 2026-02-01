@@ -25,7 +25,7 @@ namespace CultMask.Players
         protected override void OnUpdate()
         {
             AdaptiveApplyGravity();
-            AdaptiveUpdateMovement(rotationSpeed: 0.0f);
+            AdaptiveUpdateMovement(rotationSpeed: 0.0f, maxSpeed: 0.75f * Data.MaxWalkSpeed);
         }
     }
 }

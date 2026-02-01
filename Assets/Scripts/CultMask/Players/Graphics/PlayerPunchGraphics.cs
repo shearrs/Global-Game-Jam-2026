@@ -10,14 +10,23 @@ namespace CultMask.Players.Graphics
         [SerializeField]
         private ParticleSystem punchParticles;
 
+        [SerializeField]
+        private ParticleSystem impactParticles;
+
         [Auto]
+        [AutoEvent(nameof(PlayerPunchManager.Punched), nameof(OnPunched))]
         [AutoEvent(nameof(PlayerPunchManager.HitDelivered), nameof(OnHitDelivered))]
         private PlayerPunchManager punchManager;
 
+        private void OnPunched()
+        {
+            punchParticles.Play();
+        }
+
         private void OnHitDelivered(HitData3D data)
         {
-            punchParticles.transform.position = data.Result.Point;
-            punchParticles.Play();
+            impactParticles.transform.position = data.Result.Point;
+            impactParticles.Play();
         }
     }
 }
