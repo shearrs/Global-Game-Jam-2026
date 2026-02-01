@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2552207589151672022}
   - component: {fileID: 2810957385134817464}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Vision Element
   m_TagString: Untagged
   m_Icon: {fileID: 0}

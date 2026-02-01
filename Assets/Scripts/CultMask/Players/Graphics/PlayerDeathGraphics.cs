@@ -39,6 +39,7 @@ namespace CultMask.Players.Graphics
         private void OnCharacterDied()
         {
             tween.Dispose();
+            fadeImage.gameObject.SetActive(true);
             tween = fadeImage.GetModulateTween(Color.white, fadeOutTween);
             tween.PlayAfter(FADE_DELAY);
 
