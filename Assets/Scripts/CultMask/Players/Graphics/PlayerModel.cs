@@ -1,6 +1,7 @@
 using Shears;
 using Shears.StateMachineGraphs;
 using Shears.Tweens;
+using System;
 using UnityEngine;
 
 namespace CultMask.Players.Graphics
@@ -45,6 +46,8 @@ namespace CultMask.Players.Graphics
         private float previousNonZeroYVelocity;
 
         private Tween bodyTween;
+
+        public event Action Landed;
         #endregion
 
         private void Awake()
@@ -62,6 +65,8 @@ namespace CultMask.Players.Graphics
 
             if (character.Controller.IsGrounded && !wasGrounded && previousNonZeroYVelocity < SQUASH_VELOCITY_THRESHOLD)
             {
+                Landed?.Invoke();
+
                 DoFallSquash();
                 previousNonZeroYVelocity = 0;
             }
@@ -114,10 +119,10 @@ namespace CultMask.Players.Graphics
 
         private void AdjustBodyHeight()
         {
-            if (bodyTween.IsPlaying)
-                body.transform.localPosition = body.transform.localPosition.With(y: body.transform.localScale.y);
-            else
-                body.transform.localPosition = new(0.0f, 1.0f, 0.0f);
+            //if (bodyTween.IsPlaying)
+            //    body.transform.localPosition = body.transform.localPosition.With(y: body.transform.localScale.y);
+            //else
+            //    body.transform.localPosition = Vector3.zero;
         }
     }
 }
