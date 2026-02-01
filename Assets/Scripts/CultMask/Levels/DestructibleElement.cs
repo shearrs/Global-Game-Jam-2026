@@ -14,6 +14,9 @@ namespace CultMask.Levels
         [SerializeField]
         private ParticleSystem destroyParticles;
 
+        [SerializeField]
+        private AudioSource audioSource;
+
         [Header("Settings")]
         [SerializeField, Min(1)]
         private int health = 1;
@@ -37,6 +40,8 @@ namespace CultMask.Levels
         private void OnHitReceived(HitData3D data)
         {
             health -= 1;
+
+            audioSource.PlayWithRange();
 
             if (health <= 0)
             {

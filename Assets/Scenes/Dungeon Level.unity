@@ -655,11 +655,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4519999594849066307, guid: 2b8a824cb8959634a8540a0622fd2853, type: 3}
       propertyPath: m_LocalScale.z
-      value: 8.499717
+      value: 8.749608
       objectReference: {fileID: 0}
     - target: {fileID: 4519999594849066307, guid: 2b8a824cb8959634a8540a0622fd2853, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 99.13437
+      value: 99.38437
       objectReference: {fileID: 0}
     - target: {fileID: 4519999594849066307, guid: 2b8a824cb8959634a8540a0622fd2853, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3069,73 +3069,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8510395484354866425, guid: b85992b3c7cf05d43a1b23a44ee9c902, type: 3}
   m_PrefabInstance: {fileID: 126597177}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &132718196
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 636555272}
-    m_Modifications:
-    - target: {fileID: 2184397119184357620, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_Name
-      value: Death Particles
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
---- !u!4 &132718197 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7005581833332459701, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-  m_PrefabInstance: {fileID: 132718196}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &132718198 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8552415861181134755, guid: afae74d17ffac0348bd8d7a88ce20496, type: 3}
-  m_PrefabInstance: {fileID: 132718196}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &135800506
 PrefabInstance:
@@ -14853,97 +14786,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4519999594849066307, guid: 2b8a824cb8959634a8540a0622fd2853, type: 3}
   m_PrefabInstance: {fileID: 634143410}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &636555271
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 636555272}
-  - component: {fileID: 636555274}
-  - component: {fileID: 636555273}
-  m_Layer: 9
-  m_Name: Destructible
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &636555272
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636555271}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 132718197}
-  m_Father: {fileID: 689756022}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &636555273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636555271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b92450403910264d873330185f20e85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Shears.HitDetection::Shears.HitDetection.HurtBody3D
-  <LogLevels>k__BackingField: 29
-  isBlocking: 0
-  blockProvider:
-    objectValue: {fileID: 0}
-  colliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &636555274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636555271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f043a93aad520ba41a11fabaf02874a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: CultMask.Levels::CultMask.Levels.DestructibleElement
-  hurtBody: {fileID: 636555273}
-  destroyParticles: {fileID: 132718198}
-  health: 3
-  shakeStrength: 0.15
-  shakeDelay: 0.05
-  shakeTweenData:
-    usesDataObject: 0
-    tweenDataObject: {fileID: 0}
-    duration: 0.2
-    forceFinalValue: 1
-    updateMode: 0
-    unscaledTime: 0
-    loops: 0
-    loopMode: 0
-    usesCurve: 0
-    easingFunction: 0
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    unityEvents: []
 --- !u!1001 &639601428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16940,7 +16782,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2067707488}
-  - {fileID: 636555272}
   m_Father: {fileID: 1704526580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &693247915 stripped
@@ -30856,6 +30697,7 @@ GameObject:
   - component: {fileID: 1209967243}
   - component: {fileID: 1209967245}
   - component: {fileID: 1209967244}
+  - component: {fileID: 1209967246}
   m_Layer: 9
   m_Name: Destructible Door
   m_TagString: Untagged
@@ -30924,6 +30766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: CultMask.Levels::CultMask.Levels.DestructibleElement
   hurtBody: {fileID: 1209967244}
   destroyParticles: {fileID: 1970805209}
+  audioSource: {fileID: 1209967246}
   health: 3
   shakeStrength: 0.15
   shakeDelay: 0.05
@@ -30945,6 +30788,103 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     unityEvents: []
+--- !u!82 &1209967246
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209967242}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: c4bc776eeee0bcc47a19ca53f6803014, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.85
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1211454919
 PrefabInstance:
   m_ObjectHideFlags: 0

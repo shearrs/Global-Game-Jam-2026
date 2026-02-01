@@ -10,6 +10,9 @@ namespace CultMask.Enemies
         [SerializeField]
         private Enemy enemy;
 
+        [SerializeField]
+        private AudioSource audioSource;
+
         [Auto]
         [AutoEvent(nameof(HurtBody3D.HitReceived), nameof(OnHitReceived))]
         private HurtBody3D hurtBody;
@@ -19,6 +22,8 @@ namespace CultMask.Enemies
         private void OnHitReceived(HitData3D _)
         {
             health--;
+
+            audioSource.PlayWithRange();
 
             if (health <= 0)
                 enemy.Die();

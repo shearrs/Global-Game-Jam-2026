@@ -23,6 +23,9 @@ namespace CultMask.Players
         [AutoEvent(nameof(Timer.Completed), nameof(OnRegenTimerCompleted))]
         private readonly Timer regenTimer = new(10.0f);
 
+        [SerializeField]
+        private AudioSource audioSource;
+
         private PlayerCharacter character;
         private PlayerCharacterData data;
 
@@ -45,6 +48,7 @@ namespace CultMask.Players
                 return;
 
             ChangeHealth(-1);
+            audioSource.PlayWithRange();
             
             if (health == 0)
                 character.Die();
