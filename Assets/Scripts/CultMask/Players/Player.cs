@@ -16,14 +16,18 @@ namespace CultMask.Players
         [SerializeField]
         new private PlayerCamera camera;
 
+        [SerializeField, RuntimeReadOnly]
+        private PlayerCharacter characterInstance;
+
         [SerializeField]
         private PlayerUnlocks unlocks;
 
+        [Header("Respawning")]
+        [SerializeField]
+        private Transform respawnPoint;
+
         [SerializeField]
         private float respawnTime = 5.0f;
-
-        [SerializeField, RuntimeReadOnly]
-        private PlayerCharacter characterInstance;
 
         private PlayerInput input;
 
@@ -56,6 +60,8 @@ namespace CultMask.Players
 
             camera.SetTarget(characterInstance.transform);
             characterInstance.Died += OnCharacterDied;
+
+            characterInstance.Controller.SetPosition(respawnPoint.position);
 
             CharacterSpawned?.Invoke(characterInstance);
         }
